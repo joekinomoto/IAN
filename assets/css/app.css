@@ -4006,7 +4006,7 @@ input[type=file] {
   background-image: url("../media/hero/hero-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
-  padding: clamp(110px, 22.813vw, 518px) 0 clamp(150px, 10.938vw, 280px) 0;
+  padding: clamp(110px, 22.813vw, 110px) 0 clamp(110px, 10.938vw, 110px) 0;
 }
 @media (max-width: 992px) {
   .hero-banner {
