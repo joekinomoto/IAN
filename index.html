@@ -46,9 +46,31 @@
       pointer-events: none;
       border: 2px solid #fff;
     }
+    .car-content {
+      transition: background 0.3s, box-shadow 0.3s;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px 0 rgba(0,0,0,.07);
+      background: #fff;
+      padding: 20px 0 10px 0;
+      margin: 8px;
+      min-width: 210px;
+      min-height: 170px;
+      cursor: pointer;
+    }
+    .car-content.active,
+    .car-content.selected {
+      background: #fffbe7 !important;
+      box-shadow: 0 8px 28px 0 rgba(255,180,60,.23);
+      border: 2px solid #FFBE3D;
+    }
+    .car-content:hover {
+      box-shadow: 0 8px 28px 0 rgba(255,180,60,.08);
+      background: #fcf9ec;
+    }
     @media (max-width: 576px) {
       .car-badge { font-size: 1rem; min-width: 1.5em; height: 1.5em; right: -1.1em; top: -0.5em;}
       .car-content-label { font-size: 1.1rem;}
+      .car-content { min-width: 120px; }
     }
     .footer-logo-large {
       min-width: 150px;
@@ -249,10 +271,8 @@
     const SUPABASE_URL = 'https://jxtpcfjmpahguudaksld.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4dHBjZmptcGFoZ3V1ZGFrc2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjE4NDgsImV4cCI6MjA2NzMzNzg0OH0.5vSPaIM3cwQGyX0xYnaoRMPkdHIdBq_O6rHqwZWKB0Q';
 
-    // Categorías cargadas de la base de datos (no estáticas)
     let categoriesFromAPI = [];
 
-    // Selecciona los contenedores donde irán los autos
     const disponiblesCont = document.querySelector('#nav-desc .row');
     const vendidosCont = document.querySelector('#nav-review .row');
     const carCatBlock = document.getElementById('car-categories-block');
@@ -260,7 +280,6 @@
     let autosData = [];
     let currentCategory = null; // null = mostrar todos
 
-    // Renderiza un auto en formato card
     function autoCard(auto, vendido = false) {
       return `
       <div class="col-xxl-3 col-xl-4 col-sm-6">
@@ -315,12 +334,12 @@
       `;
     }
 
-    // Renderiza la barrita de categorías con burbujas
     function renderCategories(countByCategory) {
       carCatBlock.innerHTML = categoriesFromAPI.map(cat => {
         const qty = countByCategory[cat.categoria] || 0;
+        const isActive = currentCategory === cat.categoria ? 'active selected' : '';
         return `
-          <div class="car-content" style="position:relative;cursor:pointer;" data-cat="${cat.categoria}">
+          <div class="car-content ${isActive}" style="position:relative;cursor:pointer;" data-cat="${cat.categoria}">
             <div style="position:relative;">
               <img src="${cat.imagen || 'assets/media/hero/sedan.png'}" alt="" style="height:54px;">
               ${qty > 0 ? `<span class="car-badge">${qty}</span>` : ''}
@@ -329,46 +348,29 @@
           </div>
         `;
       }).join('');
-      // Listeners para el filtro por categoría
       document.querySelectorAll('.car-content').forEach(el => {
         el.onclick = () => {
           const cat = el.getAttribute('data-cat');
           if(currentCategory === cat) {
-            currentCategory = null; // Quitar filtro al hacer click en la activa
+            currentCategory = null;
           } else {
             currentCategory = cat;
           }
           renderAutos();
-          // Marcar activa visualmente
-          document.querySelectorAll('.car-content').forEach(c => c.classList.remove('active'));
-          if(currentCategory) {
-            document.querySelector(`.car-content[data-cat="${currentCategory}"]`).classList.add('active');
-          }
         };
       });
-      // Setear .active si hay filtro
-      if(currentCategory) {
-        document.querySelector(`.car-content[data-cat="${currentCategory}"]`).classList.add('active');
-      }
     }
 
-    // Renderiza los autos de acuerdo al tab/filtro actual
     function renderAutos() {
-      // Filtra disponibles y vendidos
       let disponibles = autosData.filter(a => a.stage === true);
       let vendidos = autosData.filter(a => a.stage === false);
-
-      // Filtra por categoría si hay filtro
       if(currentCategory) {
         disponibles = disponibles.filter(a => a.categoria === currentCategory);
         vendidos = vendidos.filter(a => a.categoria === currentCategory);
       }
-
-      // Llena cards de autos
       disponiblesCont.innerHTML = disponibles.length ? disponibles.map(a => autoCard(a, false)).join('') : '<div class="col-12"><p>No hay autos disponibles.</p></div>';
       vendidosCont.innerHTML = vendidos.length ? vendidos.map(a => autoCard(a, true)).join('') : '<div class="col-12"><p>No hay autos vendidos.</p></div>';
-
-      // Contar cuántos disponibles hay por categoría (cat: Motocicleta, Sedan, ...)
+      // Burbujas solo para disponibles
       const catCount = {};
       for (const a of autosData.filter(a => a.stage === true)) {
         const cat = a.categoria ? a.categoria.trim() : '';
@@ -377,35 +379,25 @@
       renderCategories(catCount);
     }
 
-    // Carga categorías y autos
     function cargarTodo() {
-      // 1. Trae categorías
       fetch(`${SUPABASE_URL}/rest/v1/ocate?select=*`, {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: 'Bearer ' + SUPABASE_KEY
-        }
+        headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
       })
       .then(res => res.json())
       .then(categories => {
-        // Filtrar solo las activas
         categoriesFromAPI = categories.filter(cat => !cat.INACTIVE);
-        // 2. Trae autos
         return fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: 'Bearer ' + SUPABASE_KEY
-          }
+          headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
         });
       })
       .then(res => res.json())
       .then(autos => {
         autosData = autos;
-        renderAutos(); // esto renderiza categorías y autos
+        renderAutos();
       });
     }
 
-    // --------- Control visual de pestañas ---------
+    // Pestañas
     function updateTabBgText() {
       var descTab = document.getElementById('nav-desc-tab');
       var reviewTab = document.getElementById('nav-review-tab2');
@@ -423,7 +415,6 @@
       descTab.classList.add('active');
       reviewTab.classList.remove('active');
       updateTabBgText();
-      // Siempre mostrar "disponibles" al hacer clic
       renderAutos();
     });
     reviewTab && reviewTab.addEventListener('click', function() {
@@ -437,6 +428,5 @@
     // Inicia todo
     cargarTodo();
   </script>
-
 </body>
 </html>
