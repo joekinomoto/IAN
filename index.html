@@ -17,14 +17,18 @@
   <link rel="stylesheet" href="assets/css/vendor/jquery.timepicker.min.css">
   <link rel="stylesheet" href="assets/css/app.css">
   <style>
+    /* Categorías grid y cards */
     .car-block {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 32px 28px;
+      display: grid;
+      grid-gap: 32px 28px;
       justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       margin-bottom: 32px;
       padding-bottom: 0.5rem;
       width: 100%;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .car-content {
       display: flex;
@@ -34,20 +38,20 @@
       border-radius: 18px;
       box-shadow: 0 3px 18px 0 rgba(30,37,62,.08);
       padding: 30px 30px 18px 30px;
-      min-width: 210px;
+      min-width: 0;
       min-height: 140px;
       max-width: 250px;
-      flex: 1 0 210px;
       position: relative;
       margin-bottom: 0.25rem;
       transition: box-shadow .18s, border-color .2s, background .2s;
       cursor: pointer;
       border: 2px solid transparent;
+      user-select: none;
     }
     .car-content.selected,
-    .car-content:active {
-      background: #fff8e1;
-      border: 2px solid #FFCA42;
+    .car-content:hover {
+      background: #fff8e1 !important;
+      border: 2px solid #FFCA42 !important;
       box-shadow: 0 4px 32px 0 rgba(255,202,66,.20);
     }
     .car-content-label {
@@ -62,10 +66,33 @@
       text-align: center;
       min-height: 2.4rem;
     }
+    /* Imagen de la categoría */
+    .car-content-img-wrapper {
+      width: 76px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+    }
+    .car-content-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      max-width: 70px;
+      max-height: 54px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: transparent;
+      border-radius: 0.3em;
+      box-shadow: none;
+      transition: filter .17s;
+    }
     .car-badge {
       position: absolute;
-      right: -1.6em;
-      top: -0.8em;
+      right: -1.0em;
+      top: -0.7em;
       min-width: 2em;
       height: 2em;
       background: #e60000;
@@ -82,163 +109,266 @@
       border: 2px solid #fff;
     }
     @media (max-width: 1100px) {
-      .car-block { gap: 18px 14px; }
-      .car-content { min-width: 170px; max-width: 200px; padding: 22px 8px 12px 8px;}
+      .car-block { grid-gap: 18px 14px; }
+      .car-content { max-width: 200px; padding: 22px 8px 12px 8px;}
       .car-content-label { font-size: 1.05rem; }
+      .car-content-img-wrapper { width: 60px; height: 42px;}
     }
-    @media (max-width: 750px) {
-      .car-block { gap: 12px 10px; }
-      .car-content { min-width: 140px; max-width: 180px; padding: 15px 6px 10px 6px;}
+    @media (max-width: 900px) {
+      .car-block {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
-    @media (max-width: 600px) {
-      .car-block { gap: 10px 8px; }
-      .car-content { min-width: 90vw; max-width: 99vw; width: 98vw;}
-    }
-    @media (max-width: 420px) {
-      .car-content { padding: 10px 2vw 6px 2vw; }
+    @media (max-width: 700px) {
+      .car-block {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px 6px;
+      }
+      .car-content { max-width: none; min-width: 0; padding: 16px 2vw 8px 2vw; }
       .car-content-label { font-size: 1rem; }
+      .car-content-img-wrapper { width: 48px; height: 33px;}
     }
-    /* Burbuja chica para mobile */
+    @media (max-width: 480px) {
+      .car-block {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 8px 3px;
+      }
+      .car-content { padding: 10px 1vw 4px 1vw; }
+      .car-content-label { font-size: 0.98rem; }
+      .car-content-img-wrapper { width: 38px; height: 25px;}
+    }
     @media (max-width: 576px) {
       .car-badge { font-size: 1rem; min-width: 1.4em; height: 1.4em; right: -1.1em; top: -0.5em;}
-      .car-content-label { font-size: 1.03rem;}
+    }
+    /* ... Footer y Loader igual que antes ... */
+    .footer {
+      background: #222;
+      padding: 0;
+      color: #fff;
+      width: 100%;
+    }
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 16px;
+    }
+    .footer-logo {
+      min-width: 120px;
+      max-width: 180px;
+      height: auto;
+    }
+    .footer-copyright {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+      letter-spacing: 0.02em;
+      opacity: .95;
+    }
+    @media (max-width: 800px) {
+      .footer-content {
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer-logo {
+        margin-bottom: 4px;
+      }
+      .footer-copyright {
+        font-size: 0.97rem;
+      }
+    }
+    .loader {
+      position: fixed;
+      z-index: 5000;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: #fff;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.7s cubic-bezier(.43,2,.54,.96);
+      opacity: 1;
+    }
+    .loader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader svg.car {
+      animation: car-move 1.3s linear infinite;
+      width: 110px;
+      height: 46px;
+      display: block;
+    }
+    @keyframes car-move {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+    .car__wheel--left, .car__wheel--right {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: wheel-spin 1.7s linear infinite;
+    }
+    @keyframes wheel-spin {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .car__line {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: line-fade 1.8s linear infinite;
+    }
+    .car__line--top { animation-delay: 0.1s; }
+    .car__line--middle { animation-delay: 0.2s; }
+    .car__line--bottom { animation-delay: 0.3s; }
+    @keyframes line-fade {
+      0%, 100% { opacity:0; stroke-dashoffset: 30;}
+      30% { opacity:1; stroke-dashoffset: 25;}
+      60% { opacity:1; stroke-dashoffset: 0;}
+      80% { opacity:0; stroke-dashoffset: 30;}
     }
   </style>
 </head>
 <body class="tt-smooth-scroll">
+  <!-- preloader Start -->
+  <div class="loader" id="preloader">
+    <svg class="car" width="102" height="40" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(2 1)" stroke="#002742" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path class="car__body"
+          d="M47.293 2.375C52.927.792 54.017.805 54.017.805c2.613-.445 6.838-.337 9.42.237l8.381 1.863c2.59.576 6.164 2.606 7.98 4.531l6.348 6.732 6.245 1.877c3.098.508 5.609 3.431 5.609 6.507v4.206c0 .29-2.536 4.189-5.687 4.189H36.808c-2.655 0-4.34-2.1-3.688-4.67 0 0 3.71-19.944 14.173-23.902zM36.5 15.5h54.01"
+          stroke-width="3" />
+        <ellipse class="car__wheel--left" stroke-width="3.2" fill="#FFF" cx="83.493" cy="30.25" rx="6.922" ry="6.808" />
+        <ellipse class="car__wheel--right" stroke-width="3.2" fill="#FFF" cx="46.511" cy="30.25" rx="6.922" ry="6.808" />
+        <path class="car__line car__line--top" d="M22.5 16.5H2.475" stroke-width="3" />
+        <path class="car__line car__line--middle" d="M20.5 23.5H.4755" stroke-width="3" />
+        <path class="car__line car__line--bottom" d="M25.5 9.5h-19" stroke-width="3" />
+      </g>
+    </svg>
+  </div>
+  <!-- preloader END -->
 
-  <!-- HEADER MENU START -->
-  <header class="header">
-    <div class="container-fluid">
-      <nav class="navigation d-flex align-items-center justify-content-between py-16">
-        <a href="index.html" class="d-flex align-items-center">
-          <img src="assets/media/logo.png" alt="/logo" class="header-logo">
-        </a>
-        <div class="menu-button-right">
-          <div class="main-menu__nav">
-            <ul class="main-menu__list">
-              <li><a href="index.html" class="active">Home</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li class="dropdown">
-                <a href="javascript:void(0); ">Listing</a>
-                <ul>
-                  <li> <a href="cars.html">Cars</a></li>
-                  <li> <a href="car-details.html">Cars Details</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="javascript:void(0); ">Pages </a>
-                <ul>
-                  <li><a href="blogs.html">Blogs</a></li>
-                  <li><a href="blogs-2.html">Blogs-2</a></li>
-                  <li><a href="blog-list.html">Blog List</a></li>
-                  <li><a href="blog-list-2.html">Blog List-2</a></li>
-                  <li><a href="blog-detail.html">Blog Detail</a></li>
-                  <li><a href="booking.html">Booking Now</a></li>
-                  <li><a href="404.html">404 Page</a></li>
-                  <li><a href="faq's.html">Faq's</a></li>
-                </ul>
-              </li>
-              <li><a href="contact.html">Contact Us</a></li>
-            </ul>
+  <!-- Main Wrapper Start -->
+  <div id="scroll-container">
+    <!-- HEADER MENU START -->
+    <!-- ... el resto del header/menu igual que antes ... -->
+    <header class="header">
+      <div class="container-fluid">
+        <nav class="navigation d-flex align-items-center justify-content-between py-16">
+          <a href="index.html" class="d-flex align-items-center">
+            <img src="assets/media/logo.png" alt="/logo" class="header-logo">
+          </a>
+          <div class="menu-button-right">
+            <div class="main-menu__nav">
+              <ul class="main-menu__list">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                  <a href="javascript:void(0); ">Listing</a>
+                  <ul>
+                    <li> <a href="cars.html">Cars</a></li>
+                    <li> <a href="car-details.html">Cars Details</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="javascript:void(0); ">Pages </a>
+                  <ul>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="blogs-2.html">Blogs-2</a></li>
+                    <li><a href="blog-list.html">Blog List</a></li>
+                    <li><a href="blog-list-2.html">Blog List-2</a></li>
+                    <li><a href="blog-detail.html">Blog Detail</a></li>
+                    <li><a href="booking.html">Booking Now</a></li>
+                    <li><a href="404.html">404 Page</a></li>
+                    <li><a href="faq's.html">Faq's</a></li>
+                  </ul>
+                </li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="main-menu__right">
+            <div class="search-heart-icon d-sm-flex d-none align-items-center gap-24"></div>
+            <a href="" class="d-xl-none d-flex main-menu__toggler mobile-nav__toggler">
+              <img src="assets/media/icons/menu-2.png" alt="">
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- HEADER MENU END -->
+
+    <section class="hero-banner">
+      <div class="container-fluid">
+        <div class="hero-content">
+          <div class="heading text-lg-start text-center my-4">
+            <p class="mb-4 text-white">¿Estás listo para elegir el vehículo que te llevará a la libertad?</p>
+            <h4 class="text-white">Elige la libertad. Elige tu vehículo.</h4>
           </div>
         </div>
-        <div class="main-menu__right">
-          <div class="search-heart-icon d-sm-flex d-none align-items-center gap-24"></div>
-          <a href="" class="d-xl-none d-flex main-menu__toggler mobile-nav__toggler">
-            <img src="assets/media/icons/menu-2.png" alt="">
-          </a>
-        </div>
-      </nav>
-    </div>
-  </header>
-  <!-- HEADER MENU END -->
-
-  <section class="hero-banner">
-    <div class="container-fluid">
-      <div class="hero-content">
-        <div class="heading text-lg-start text-center my-4">
-          <p class="mb-4 text-white">¿Estás listo para elegir el vehículo que te llevará a la libertad?</p>
-          <h4 class="text-white">Elige la libertad. Elige tu vehículo.</h4>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CATEGORÍAS DE AUTOS CON BURBUJA -->
-  <section class="hero-cars-block">
-    <div class="container-fluid">
-      <div class="car-block" id="car-categories-block">
-        <!-- JS llena aquí las categorías con burbuja -->
+    <section class="hero-cars-block">
+      <div class="container-fluid">
+        <div class="car-block" id="car-categories-block"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- BLOG Section START -->
-  <section class="blog-sec py-80">
-    <div class="container-fluid position-relative">
-      <div class="d-flex flex-wrap row-gap-4 justify-content-lg-between justify-content-center align-items-end mb-48">
-        <div class="heading text-lg-start text-center">
-          <h4 class="black"></h4>
-        </div>
-        <nav class="nav-cotent position-relative" style="z-index:1;">
-          <div style="position:relative;display:inline-block;">
-            <div class="tab-bg-text-wrapper" style="position:relative;">
-              <div id="tab-bg-text" class="tab-bg-text" style="position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:clamp(2rem,7vw,5rem);font-weight:900;color:#b0b0b0;opacity:0.25;transition:all 0.4s;line-height:1;white-space:nowrap;">
-              </div>
-              <div class="d-flex gap-16 align-items-center position-relative" style="z-index:1;">
-                <div class="nav nav-tabs active reviews" id="nav-tab" role="tablist">
-                  <div class="nav-link discription" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
-                    role="tab" aria-controls="nav-desc" aria-selected="false">
-                    <div>
-                      <h6 class="fw-500">Disponibles</h6>
+    <!-- ... el resto de la página igual ... -->
+    <section class="blog-sec py-80">
+      <div class="container-fluid position-relative">
+        <div class="d-flex flex-wrap row-gap-4 justify-content-lg-between justify-content-center align-items-end mb-48">
+          <div class="heading text-lg-start text-center">
+            <h4 class="black"></h4>
+          </div>
+          <nav class="nav-cotent position-relative" style="z-index:1;">
+            <div style="position:relative;display:inline-block;">
+              <div class="tab-bg-text-wrapper" style="position:relative;">
+                <div id="tab-bg-text" class="tab-bg-text" style="position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:clamp(2rem,7vw,5rem);font-weight:900;color:#b0b0b0;opacity:0.25;transition:all 0.4s;line-height:1;white-space:nowrap;"></div>
+                <div class="d-flex gap-16 align-items-center position-relative" style="z-index:1;">
+                  <div class="nav nav-tabs active reviews" id="nav-tab" role="tablist">
+                    <div class="nav-link discription active" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
+                      role="tab" aria-controls="nav-desc" aria-selected="true">
+                      <div><h6 class="fw-500">Disponibles</h6></div>
                     </div>
-                  </div>
-                  <div class="nav-line"></div>
-                  <div class="nav-link active reviews" id="nav-review-tab2" data-bs-toggle="tab"
-                    data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="true">
-                    <div>
-                      <h6 class="fw-500">Vendidos</h6>
+                    <div class="nav-line"></div>
+                    <div class="nav-link reviews" id="nav-review-tab2" data-bs-toggle="tab"
+                      data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="false">
+                      <div><h6 class="fw-500">Vendidos</h6></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </nav>
-      </div>
-      <div class="description-wrapper mb-48">
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
-            <div class="row row-gap-4">
-              <!-- Autos disponibles se llenan por JS -->
+          </nav>
+        </div>
+        <div class="description-wrapper mb-48">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade active show" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
+              <div class="row row-gap-4" id="disponibles-autos-row"></div>
             </div>
-          </div>
-          <div class="tab-pane fade active show" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
-            <div class="row row-gap-4">
-              <!-- Autos vendidos se llenan por JS -->
+            <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
+              <div class="row row-gap-4" id="vendidos-autos-row"></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- BLOG ARTICLE Section END -->
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div>
-      <div class="footer-wrapper d-flex align-items-center justify-content-between px-4 py-2" style="min-height:60px;">
-        <div class="footer-sec-1">
-          <img style="min-width:110px;max-width:140px;width:120px;" src="assets/media/footer-logo.png" alt="">
-        </div>
-        <div class="footer-sec-2">
-          <p class="fw-400 lightest-gray mb-0" style="font-size: 1rem; letter-spacing:0.03em;">IAN © 2025 - Todos los derechos reservados.</p>
-        </div>
+    <footer class="footer">
+      <div class="footer-content">
+        <img class="footer-logo" src="assets/media/footer-logo.png" alt="IAN Importadora de Autos del Norte">
+        <p class="footer-copyright">IAN © 2025 - Todos los derechos reservados.</p>
       </div>
-    </div>
-  </footer>
-  <!-- FOOTER END -->
+    </footer>
+  </div>
+  <!-- Main Wrapper End -->
 
   <!-- Jquery y plugins (según tu template) -->
   <script src="assets/js/vendor/bootstrap.min.js"></script>
@@ -251,30 +381,20 @@
   <script src="assets/js/vendor/jquery.timepicker.min.js"></script>
   <script src="assets/js/date.js"></script>
   <script src="assets/js/app.js"></script>
-
-  <!-- SCRIPT DINÁMICO -->
   <script>
     const SUPABASE_URL = 'https://jxtpcfjmpahguudaksld.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4dHBjZmptcGFoZ3V1ZGFrc2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjE4NDgsImV4cCI6MjA2NzMzNzg0OH0.5vSPaIM3cwQGyX0xYnaoRMPkdHIdBq_O6rHqwZWKB0Q';
-
-    // Estado
-    let categoriesFromAPI = [];
-    let autosData = [];
-    let selectedCategory = null;
-    let tabSelected = "disponibles"; // 'disponibles' o 'vendidos'
-
-    const disponiblesCont = document.querySelector('#nav-desc .row');
-    const vendidosCont = document.querySelector('#nav-review .row');
+    let categorias = [], autos = [];
+    let categoriaSeleccionada = null;
+    let mostrandoVendidos = false;
     const carCatBlock = document.getElementById('car-categories-block');
+    const disponiblesCont = document.getElementById('disponibles-autos-row');
+    const vendidosCont = document.getElementById('vendidos-autos-row');
 
     function autoCard(auto, vendido = false) {
-      // Formatea el teléfono
-      function formatPhone(number) {
-        if (!number) return '';
-        let str = number.toString();
-        if (str.length === 8) return `(+502) ${str.slice(0,4)}-${str.slice(4)}`;
-        return str;
-      }
+      let wnum = (auto.whatsapp || '').replace(/\D/g,'');
+      let wnumFmt = wnum.length === 8 ? `(+502) ${wnum.slice(0,4)}-${wnum.slice(4,8)}` : (wnum || '');
+      let wlink = wnum ? `https://wa.me/502${wnum}?text=Hola! Me interesa el vehículo: ${encodeURIComponent(auto.nombre||'')}` : '#';
       return `
       <div class="col-xxl-3 col-xl-4 col-sm-6">
         <div class="blog-1">
@@ -313,19 +433,16 @@
               </div>
             </div>
             <div class="d-flex align-items-center justify-content-between">
-              <div>
+              <div style="text-align:left;">
                 ${vendido
-                  ? `<span style="color:#E60000;font-weight:700;">VENDIDO</span>`
-                  : `<span style="font-weight:400;">Contactanos: </span>
-                     <span class="fw-600">${formatPhone(auto.whatsapp) || ''}</span>`
+                  ? `<span class="black" style="font-weight:600;">VENDIDO</span>`
+                  : `Contactanos: <span class="fw-600">${wnumFmt}</span>`
                 }
               </div>
               <div>
                 ${vendido
-                  ? `<i class="fa-brands fa-whatsapp" style="color:#b0b0b0;opacity:.7;font-size:2em;pointer-events:none;cursor:default;"></i>`
-                  : `<a href="https://wa.me/502${auto.whatsapp || ''}?text=Hola,%20me%20interesa%20el%20vehículo:%20${encodeURIComponent(auto.nombre || '')}" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
-                      <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:2em;"></i>
-                    </a>`
+                  ? `<i class="fa-brands fa-whatsapp" style="color: #aaa; font-size:2.0em; opacity:.3;cursor:not-allowed;" title="Auto vendido"></i>`
+                  : `<a href="${wlink}" target="_blank" onclick="event.stopPropagation()" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp"><i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:2.1em;"></i></a>`
                 }
               </div>
             </div>
@@ -335,123 +452,110 @@
       `;
     }
 
-    // RENDERIZA LAS CATEGORÍAS DESDE LA API Y MANTIENE EL FILTRO SELECCIONADO
-    function renderCategories(countByCategory) {
-      carCatBlock.innerHTML = categoriesFromAPI.map(cat => {
-        const qty = countByCategory[cat.categoria] || 0;
+    function renderCategorias(countByCat) {
+      carCatBlock.innerHTML = categorias.map(cat => {
+        let qty = countByCat[cat.categoria] || 0;
+        let imgsrc = cat.imagen || 'assets/media/hero/sedan.png';
         return `
-          <div class="car-content${selectedCategory === cat.categoria ? ' selected' : ''}"
-            tabindex="0"
-            data-category="${cat.categoria}">
-            <div style="position:relative;">
-              <img src="${cat.imagen || ''}" alt="">
-              ${qty > 0 ? `<span class="car-badge">${qty}</span>` : ''}
-            </div>
-            <div class="car-content-label">${cat.categoria}</div>
+        <div class="car-content${categoriaSeleccionada === cat.categoria ? ' selected' : ''}"
+             data-cat="${cat.categoria}" tabindex="0" title="${cat.categoria}">
+          <div class="car-content-img-wrapper">
+            <img src="${imgsrc}" alt="${cat.categoria}">
+            ${qty > 0 ? `<span class="car-badge">${qty}</span>` : ''}
           </div>
+          <div class="car-content-label">${cat.categoria}</div>
+        </div>
         `;
       }).join('');
-      // Bind click eventos
-      Array.from(carCatBlock.querySelectorAll('.car-content')).forEach(el => {
+    }
+
+    function filtrarYRenderizarAutos() {
+      let disp = autos.filter(a => a.stage === true);
+      let vend = autos.filter(a => a.stage === false);
+      if (categoriaSeleccionada) {
+        disp = disp.filter(a => a.categoria && a.categoria === categoriaSeleccionada);
+        vend = vend.filter(a => a.categoria && a.categoria === categoriaSeleccionada);
+      }
+      disp = disp.sort((a,b) => b.id - a.id || (a.nombre||'').localeCompare(b.nombre||''));
+      vend = vend.sort((a,b) => b.id - a.id || (a.nombre||'').localeCompare(b.nombre||''));
+      disponiblesCont.innerHTML = disp.length ? disp.map(a => autoCard(a, false)).join('') : '<div class="col-12"><p>No hay autos disponibles.</p></div>';
+      vendidosCont.innerHTML = vend.length ? vend.map(a => autoCard(a, true)).join('') : '<div class="col-12"><p>No hay autos vendidos.</p></div>';
+    }
+
+    function renderTodo() {
+      let disp = autos.filter(a => a.stage === true);
+      let countByCat = {};
+      for (const a of disp) {
+        if (!a.categoria) continue;
+        countByCat[a.categoria] = (countByCat[a.categoria] || 0) + 1;
+      }
+      renderCategorias(countByCat);
+      filtrarYRenderizarAutos();
+      document.querySelectorAll('.car-content').forEach(el => {
         el.onclick = () => {
-          if (selectedCategory === el.dataset.category) {
-            selectedCategory = null;
+          if (categoriaSeleccionada === el.dataset.cat) {
+            categoriaSeleccionada = null;
           } else {
-            selectedCategory = el.dataset.category;
+            categoriaSeleccionada = el.dataset.cat;
           }
-          renderFilteredAutos();
-          renderCategories(countAutosByCategory());
+          renderTodo();
         };
       });
     }
 
-    // FILTRA LOS AUTOS Y LOS RENDERIZA SEGÚN EL TAB Y LA CATEGORÍA SELECCIONADA
-    function renderFilteredAutos() {
-      // Filtrar por pestaña y categoría
-      let disponibles = autosData.filter(a => a.stage === true);
-      let vendidos = autosData.filter(a => a.stage === false);
-      if (selectedCategory) {
-        disponibles = disponibles.filter(a => a.categoria === selectedCategory);
-        vendidos = vendidos.filter(a => a.categoria === selectedCategory);
-      }
-      disponiblesCont.innerHTML = disponibles.length
-        ? disponibles.map(a => autoCard(a, false)).join('')
-        : '<div class="col-12"><p>No hay autos disponibles.</p></div>';
-      vendidosCont.innerHTML = vendidos.length
-        ? vendidos.map(a => autoCard(a, true)).join('')
-        : '<div class="col-12"><p>No hay autos vendidos.</p></div>';
-    }
-
-    // CUENTA CUÁNTOS AUTOS DISPONIBLES HAY POR CATEGORÍA
-    function countAutosByCategory() {
-      const catCount = {};
-      for (const a of autosData) {
-        if (a.stage === true) {
-          catCount[a.categoria] = (catCount[a.categoria] || 0) + 1;
-        }
-      }
-      return catCount;
-    }
-
-    // LLAMA LAS CATEGORÍAS Y LOS AUTOS DESDE SUPABASE
-    async function fetchCategoriesAndAutos() {
-      const [catRes, autoRes] = await Promise.all([
-        fetch(`${SUPABASE_URL}/rest/v1/ocate?select=*`, {
-          headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
-        }).then(r => r.json()),
-        fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
-          headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
-        }).then(r => r.json())
-      ]);
-      // Solo categorías activas y ordenadas por type DESC y nombre ASC
-      categoriesFromAPI = catRes
-        .filter(cat => cat["INACTIVE"] === false)
-        .sort((a, b) =>
-          (String(b.type).localeCompare(String(a.type)) || String(a.categoria).localeCompare(String(b.categoria)))
-        );
-      autosData = autoRes.sort((a, b) => b.id - a.id);
-      renderFilteredAutos();
-      renderCategories(countAutosByCategory());
-    }
-
-    // TABS: Cambia la pestaña entre "Disponibles" y "Vendidos"
-    function tabEvents() {
+    function updateTabBgText() {
       var descTab = document.getElementById('nav-desc-tab');
       var reviewTab = document.getElementById('nav-review-tab2');
-      var tabContent = document.getElementById('nav-tabContent');
-      function updateTabBgText() {
-        var bg = document.getElementById('tab-bg-text');
-        if (!bg) return;
-        if (descTab.classList.contains('active')) {
-          bg.textContent = 'DISPONIBLES';
-        } else if (reviewTab.classList.contains('active')) {
-          bg.textContent = 'VENDIDOS';
-        }
+      var bg = document.getElementById('tab-bg-text');
+      if (!bg) return;
+      if (descTab.classList.contains('active')) {
+        bg.textContent = 'DISPONIBLES';
+      } else if (reviewTab.classList.contains('active')) {
+        bg.textContent = 'VENDIDOS';
       }
-      descTab.addEventListener('click', function() {
-        descTab.classList.add('active');
-        reviewTab.classList.remove('active');
-        tabSelected = 'disponibles';
-        tabContent.querySelector('#nav-desc').classList.add('active', 'show');
-        tabContent.querySelector('#nav-review').classList.remove('active', 'show');
-        renderFilteredAutos();
-        updateTabBgText();
-      });
-      reviewTab.addEventListener('click', function() {
-        reviewTab.classList.add('active');
-        descTab.classList.remove('active');
-        tabSelected = 'vendidos';
-        tabContent.querySelector('#nav-review').classList.add('active', 'show');
-        tabContent.querySelector('#nav-desc').classList.remove('active', 'show');
-        renderFilteredAutos();
-        updateTabBgText();
-      });
-      updateTabBgText();
     }
+    document.getElementById('nav-desc-tab').addEventListener('click', function() {
+      document.getElementById('nav-desc-tab').classList.add('active');
+      document.getElementById('nav-review-tab2').classList.remove('active');
+      mostrandoVendidos = false;
+      document.getElementById('nav-desc').classList.add('active','show');
+      document.getElementById('nav-review').classList.remove('active','show');
+      updateTabBgText();
+      filtrarYRenderizarAutos();
+    });
+    document.getElementById('nav-review-tab2').addEventListener('click', function() {
+      document.getElementById('nav-review-tab2').classList.add('active');
+      document.getElementById('nav-desc-tab').classList.remove('active');
+      mostrandoVendidos = true;
+      document.getElementById('nav-review').classList.add('active','show');
+      document.getElementById('nav-desc').classList.remove('active','show');
+      updateTabBgText();
+      filtrarYRenderizarAutos();
+    });
+    updateTabBgText();
 
-    // INIT
-    fetchCategoriesAndAutos();
-    tabEvents();
+    async function cargarDatos() {
+      let resCat = await fetch(`${SUPABASE_URL}/rest/v1/ocate?select=*`, {
+        headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
+      });
+      let cats = await resCat.json();
+      categorias = cats.filter(c => !c.INACTIVE && !!c.categoria)
+        .sort((a,b) =>
+          String(b.type||'').localeCompare(a.type||'') ||
+          (a.categoria||'').localeCompare(b.categoria||'')
+        );
+      let resAutos = await fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
+        headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
+      });
+      autos = await resAutos.json();
+      renderTodo();
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hide');
+        document.getElementById('scroll-container').style.visibility = 'visible';
+      }, 500);
+    }
+    document.getElementById('scroll-container').style.visibility = 'hidden';
+    window.addEventListener('DOMContentLoaded', cargarDatos);
   </script>
 </body>
 </html>
