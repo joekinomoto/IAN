@@ -46,46 +46,59 @@
       pointer-events: none;
       border: 2px solid #fff;
     }
-    .car-content.selected {
-      border: 3px solid #FAB637;
-      box-shadow: 0 8px 24px rgba(250,182,55,0.14);
-    }
-    .car-content { cursor:pointer; }
     @media (max-width: 576px) {
       .car-badge { font-size: 1rem; min-width: 1.5em; height: 1.5em; right: -1.1em; top: -0.5em;}
       .car-content-label { font-size: 1.1rem;}
     }
-    /* Footer mejora */
-    .footer { background: #202020; padding: 18px 0 0; }
-    .footer .footer-wrapper { 
-      display: flex; align-items: center; 
-      justify-content: space-between; flex-wrap: wrap; 
-      gap: 10px; 
-    }
-    .footer img { 
-      min-width: 180px; 
-      width: 210px;
+    .footer-logo-large {
+      min-width: 150px;
+      width: 150px;
       max-width: 220px;
-      margin-bottom: 0 !important;
       height: auto;
-      display: block;
     }
-    .footer p { 
-      color: #fff; 
-      margin-bottom: 0; 
-      font-size: 1rem; 
+    .footer {
+      background: #212121;
+      padding: 16px 0 8px 0;
+    }
+    .footer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .footer-sec-1 {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      color: #fff;
+      font-size: 1rem;
       font-weight: 400;
-      letter-spacing: 0.01em;
+      margin: 0;
     }
-    @media (max-width:700px) {
-      .footer .footer-wrapper { flex-direction:column; align-items:center; gap:0;}
-      .footer img { margin-bottom:12px !important;}
-      .footer p { text-align:center;}
+    @media (max-width: 991px) {
+      .footer-wrapper,
+      .footer-sec-1 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+      .footer-logo-large {
+        margin-bottom: 10px;
+      }
     }
   </style>
 </head>
 
 <body class="tt-smooth-scroll">
+
   <!-- HEADER MENU START -->
   <header class="header">
     <div class="container-fluid">
@@ -168,15 +181,15 @@
               </div>
               <div class="d-flex gap-16 align-items-center position-relative" style="z-index:1;">
                 <div class="nav nav-tabs active reviews" id="nav-tab" role="tablist">
-                  <div class="nav-link discription" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
-                    role="tab" aria-controls="nav-desc" aria-selected="false">
+                  <div class="nav-link discription active" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
+                    role="tab" aria-controls="nav-desc" aria-selected="true">
                     <div>
                       <h6 class="fw-500">Disponibles</h6>
                     </div>
                   </div>
                   <div class="nav-line"></div>
-                  <div class="nav-link active reviews" id="nav-review-tab2" data-bs-toggle="tab"
-                    data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="true">
+                  <div class="nav-link reviews" id="nav-review-tab2" data-bs-toggle="tab"
+                    data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="false">
                     <div>
                       <h6 class="fw-500">Vendidos</h6>
                     </div>
@@ -189,12 +202,12 @@
       </div>
       <div class="description-wrapper mb-48">
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
+          <div class="tab-pane fade active show" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
             <div class="row row-gap-4">
               <!-- Autos disponibles se llenan por JS -->
             </div>
           </div>
-          <div class="tab-pane fade active show" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
+          <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
             <div class="row row-gap-4">
               <!-- Autos vendidos se llenan por JS -->
             </div>
@@ -207,20 +220,18 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="">
+    <div>
       <div class="footer-wrapper">
-        <div>
-          <img src="assets/media/footer-logo.png" alt="">
-        </div>
-        <div>
-          <p>IAN © 2025 - Todos los derechos reservados.</p>
+        <div class="footer-sec-1">
+          <img class="footer-logo-large" src="assets/media/footer-logo.png" alt="">
+          <p class="footer-copy">IAN © 2025 - Todos los derechos reservados.</p>
         </div>
       </div>
     </div>
   </footer>
   <!-- FOOTER END -->
 
-  <!-- Jquery y plugins -->
+  <!-- Jquery y plugins (según tu template) -->
   <script src="assets/js/vendor/bootstrap.min.js"></script>
   <script src="assets/js/vendor/jquery-3.6.3.min.js"></script>
   <script src="assets/js/vendor/slick.min.js"></script>
@@ -232,71 +243,25 @@
   <script src="assets/js/date.js"></script>
   <script src="assets/js/app.js"></script>
 
+  <!-- SCRIPT DINÁMICO -->
   <script>
-    // SUPABASE
+    // ====== SUPABASE DATOS ======
     const SUPABASE_URL = 'https://jxtpcfjmpahguudaksld.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4dHBjZmptcGFoZ3V1ZGFrc2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjE4NDgsImV4cCI6MjA2NzMzNzg0OH0.5vSPaIM3cwQGyX0xYnaoRMPkdHIdBq_O6rHqwZWKB0Q';
 
-    let categorias = [];
-    let autos = [];
-    let categoriaSeleccionada = null;
-    let tabActual = 'disponibles';
+    // Categorías cargadas de la base de datos (no estáticas)
+    let categoriesFromAPI = [];
 
+    // Selecciona los contenedores donde irán los autos
     const disponiblesCont = document.querySelector('#nav-desc .row');
     const vendidosCont = document.querySelector('#nav-review .row');
     const carCatBlock = document.getElementById('car-categories-block');
 
-    function formatGTPhone(num) {
-      num = (num || '').toString().replace(/\D/g,'').slice(-8);
-      return num.length === 8 ? `(+502) ${num.slice(0,4)}-${num.slice(4)}` : num;
-    }
+    let autosData = [];
+    let currentCategory = null; // null = mostrar todos
 
-    function renderCategories(countByCategory) {
-      carCatBlock.innerHTML = categorias.map(cat => {
-        const qty = countByCategory[cat.categoria] || 0;
-        const selected = categoriaSeleccionada === cat.categoria;
-        return `
-          <div class="car-content${selected ? ' selected' : ''}" data-cat="${cat.categoria}" style="position:relative;">
-            <div style="position:relative;">
-              <img src="${cat.imagen}" alt="">
-              <span class="car-badge">${qty}</span>
-            </div>
-            <div class="car-content-label">${cat.categoria}</div>
-          </div>
-        `;
-      }).join('');
-
-      // Clic para filtrar
-      document.querySelectorAll('.car-content').forEach(el => {
-        el.onclick = () => {
-          const cat = el.getAttribute('data-cat');
-          categoriaSeleccionada = (categoriaSeleccionada === cat ? null : cat);
-          renderCategoriasYAutos();
-        };
-      });
-    }
-
-    function renderAutos() {
-      const cont = tabActual === 'disponibles' ? disponiblesCont : vendidosCont;
-      const autosFiltrados = autos
-        .filter(a => (tabActual === 'disponibles' ? a.stage : !a.stage))
-        .filter(a => !categoriaSeleccionada || a.categoria === categoriaSeleccionada)
-        .sort((a,b) => b.id - a.id);
-      cont.innerHTML = autosFiltrados.length ? autosFiltrados.map(a => autoCard(a, tabActual === 'vendidos')).join('') : `<div class="col-12"><p>No hay autos en esta categoría.</p></div>`;
-    }
-
-    function getCountByCategory() {
-      const count = {};
-      autos.forEach(a => {
-        if ((tabActual === 'disponibles' && a.stage) || (tabActual === 'vendidos' && !a.stage)) {
-          count[a.categoria] = (count[a.categoria] || 0) + 1;
-        }
-      });
-      return count;
-    }
-
+    // Renderiza un auto en formato card
     function autoCard(auto, vendido = false) {
-      const whatsappMsg = encodeURIComponent(`Hola, estoy interesado en el vehículo ${auto.nombre}`);
       return `
       <div class="col-xxl-3 col-xl-4 col-sm-6">
         <div class="blog-1">
@@ -336,18 +301,12 @@
             </div>
             <div class="d-flex align-items-center justify-content-between">
               <div>
-                ${vendido
-                  ? `<span style="color:#E60012;font-weight:600;">VENDIDO</span>`
-                  : `<span style="font-weight:400;">Whatsapp: <span class="fw-600">${formatGTPhone(auto.whatsapp)}</span></span>`
-                }
+                <p class="black">Whatsapp: <span class="fw-600">${auto.whatsapp || ''}</span></p>
               </div>
               <div>
-                ${vendido
-                  ? `<i class="fa-brands fa-whatsapp" style="color:#AAA;font-size:2.3em;opacity:.4;cursor:not-allowed;"></i>`
-                  : `<a href="https://wa.me/502${auto.whatsapp}?text=${whatsappMsg}" target="_blank" title="Contáctame por WhatsApp" style="margin-left:8px;">
-                      <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:2.3em;"></i>
-                    </a>`
-                }
+                <a href="https://wa.me/502${auto.whatsapp || ''}" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                  <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:2em;"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -356,70 +315,128 @@
       `;
     }
 
-    async function fetchCategorias() {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/ocate?select=*`, {
-        headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
+    // Renderiza la barrita de categorías con burbujas
+    function renderCategories(countByCategory) {
+      carCatBlock.innerHTML = categoriesFromAPI.map(cat => {
+        const qty = countByCategory[cat.categoria] || 0;
+        return `
+          <div class="car-content" style="position:relative;cursor:pointer;" data-cat="${cat.categoria}">
+            <div style="position:relative;">
+              <img src="${cat.imagen || 'assets/media/hero/sedan.png'}" alt="" style="height:54px;">
+              ${qty > 0 ? `<span class="car-badge">${qty}</span>` : ''}
+            </div>
+            <div class="car-content-label">${cat.categoria}</div>
+          </div>
+        `;
+      }).join('');
+      // Listeners para el filtro por categoría
+      document.querySelectorAll('.car-content').forEach(el => {
+        el.onclick = () => {
+          const cat = el.getAttribute('data-cat');
+          if(currentCategory === cat) {
+            currentCategory = null; // Quitar filtro al hacer click en la activa
+          } else {
+            currentCategory = cat;
+          }
+          renderAutos();
+          // Marcar activa visualmente
+          document.querySelectorAll('.car-content').forEach(c => c.classList.remove('active'));
+          if(currentCategory) {
+            document.querySelector(`.car-content[data-cat="${currentCategory}"]`).classList.add('active');
+          }
+        };
       });
-      let data = await res.json();
-      categorias = data.filter(c => !c.INACTIVE)
-        .sort((a,b) => {
-          if ((b.type||'').localeCompare(a.type||'')!==0)
-            return (b.type||'').localeCompare(a.type||'');
-          return (a.categoria||'').localeCompare(b.categoria||'');
-        });
-    }
-    async function fetchAutos() {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
-        headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
-      });
-      autos = await res.json();
-    }
-
-    function renderCategoriasYAutos() {
-      renderCategories(getCountByCategory());
-      renderAutos();
-    }
-
-    function bindTabs() {
-      const descTab = document.getElementById('nav-desc-tab');
-      const reviewTab = document.getElementById('nav-review-tab2');
-      const bg = document.getElementById('tab-bg-text');
-      function updateTabBgText() {
-        if (!bg) return;
-        if (descTab.classList.contains('active')) bg.textContent = 'DISPONIBLES';
-        else if (reviewTab.classList.contains('active')) bg.textContent = 'VENDIDOS';
+      // Setear .active si hay filtro
+      if(currentCategory) {
+        document.querySelector(`.car-content[data-cat="${currentCategory}"]`).classList.add('active');
       }
-      descTab && descTab.addEventListener('click', function() {
-        descTab.classList.add('active');
-        reviewTab.classList.remove('active');
-        tabActual = 'disponibles';
-        categoriaSeleccionada = null; // Mostrar todas al cambiar tab
-        renderCategoriasYAutos();
-        updateTabBgText();
+    }
+
+    // Renderiza los autos de acuerdo al tab/filtro actual
+    function renderAutos() {
+      // Filtra disponibles y vendidos
+      let disponibles = autosData.filter(a => a.stage === true);
+      let vendidos = autosData.filter(a => a.stage === false);
+
+      // Filtra por categoría si hay filtro
+      if(currentCategory) {
+        disponibles = disponibles.filter(a => a.categoria === currentCategory);
+        vendidos = vendidos.filter(a => a.categoria === currentCategory);
+      }
+
+      // Llena cards de autos
+      disponiblesCont.innerHTML = disponibles.length ? disponibles.map(a => autoCard(a, false)).join('') : '<div class="col-12"><p>No hay autos disponibles.</p></div>';
+      vendidosCont.innerHTML = vendidos.length ? vendidos.map(a => autoCard(a, true)).join('') : '<div class="col-12"><p>No hay autos vendidos.</p></div>';
+
+      // Contar cuántos disponibles hay por categoría (cat: Motocicleta, Sedan, ...)
+      const catCount = {};
+      for (const a of autosData.filter(a => a.stage === true)) {
+        const cat = a.categoria ? a.categoria.trim() : '';
+        catCount[cat] = (catCount[cat] || 0) + 1;
+      }
+      renderCategories(catCount);
+    }
+
+    // Carga categorías y autos
+    function cargarTodo() {
+      // 1. Trae categorías
+      fetch(`${SUPABASE_URL}/rest/v1/ocate?select=*`, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: 'Bearer ' + SUPABASE_KEY
+        }
+      })
+      .then(res => res.json())
+      .then(categories => {
+        // Filtrar solo las activas
+        categoriesFromAPI = categories.filter(cat => !cat.INACTIVE);
+        // 2. Trae autos
+        return fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: 'Bearer ' + SUPABASE_KEY
+          }
+        });
+      })
+      .then(res => res.json())
+      .then(autos => {
+        autosData = autos;
+        renderAutos(); // esto renderiza categorías y autos
       });
-      reviewTab && reviewTab.addEventListener('click', function() {
-        reviewTab.classList.add('active');
-        descTab.classList.remove('active');
-        tabActual = 'vendidos';
-        categoriaSeleccionada = null; // Mostrar todas al cambiar tab
-        renderCategoriasYAutos();
-        updateTabBgText();
-      });
-      // Por defecto: activa Disponibles al cargar
+    }
+
+    // --------- Control visual de pestañas ---------
+    function updateTabBgText() {
+      var descTab = document.getElementById('nav-desc-tab');
+      var reviewTab = document.getElementById('nav-review-tab2');
+      var bg = document.getElementById('tab-bg-text');
+      if (!bg) return;
+      if (descTab.classList.contains('active')) {
+        bg.textContent = 'DISPONIBLES';
+      } else if (reviewTab.classList.contains('active')) {
+        bg.textContent = 'VENDIDOS';
+      }
+    }
+    var descTab = document.getElementById('nav-desc-tab');
+    var reviewTab = document.getElementById('nav-review-tab2');
+    descTab && descTab.addEventListener('click', function() {
       descTab.classList.add('active');
       reviewTab.classList.remove('active');
-      tabActual = 'disponibles';
-      categoriaSeleccionada = null;
       updateTabBgText();
-    }
+      // Siempre mostrar "disponibles" al hacer clic
+      renderAutos();
+    });
+    reviewTab && reviewTab.addEventListener('click', function() {
+      reviewTab.classList.add('active');
+      descTab.classList.remove('active');
+      updateTabBgText();
+      renderAutos();
+    });
+    updateTabBgText();
 
-    async function init() {
-      await fetchCategorias();
-      await fetchAutos();
-      bindTabs();
-      renderCategoriasYAutos();
-    }
-    window.addEventListener('DOMContentLoaded', init);
+    // Inicia todo
+    cargarTodo();
   </script>
+
 </body>
 </html>
