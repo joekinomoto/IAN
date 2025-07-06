@@ -26,6 +26,28 @@
   <link rel="stylesheet" href="assets/css/vendor/jquery.timepicker.min.css">
   <link rel="stylesheet" href="assets/css/app.css">
 
+  <style>
+    .notif-bubble {
+      display: inline-block;
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      background: #e50000;
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 50%;
+      min-width: 28px;
+      min-height: 28px;
+      line-height: 28px;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.13);
+      padding: 0 7px;
+      pointer-events: none;
+    }
+    .car-content { position: relative; }
+  </style>
 </head>
 
 <body class="tt-smooth-scroll">
@@ -95,57 +117,11 @@
   </section>
   <!-- HERO BANNER END -->
 
+  <!-- BLOQUE DE CATEGORÍAS DINÁMICO -->
   <section class="hero-cars-block">
     <div class="container-fluid">
-      <div class="car-block">
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/moto.png" alt="">
-          </div>
-          <div>
-            <h6 class="">Motocicletas</h6>
-          </div>
-        </a>
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/sedan.png" alt="">
-          </div>
-          <div>
-            <h6 class="">Sedan</h6>
-          </div>
-        </a>
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/cabriolet.png" alt="">
-          </div>
-          <div>
-            <h6 class="">Coupe</h6>
-          </div>
-        </a>
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/suv.png" alt="">
-          </div>
-          <div>
-            <h6 class="">SUV</h6>
-          </div>
-        </a>
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/sport-car.png" alt="">
-          </div>
-          <div>
-            <h6 class="">Sports Car</h6>
-          </div>
-        </a>
-        <a href="cars.html" class="car-content">
-          <div>
-            <img src="assets/media/hero/van.png" alt="">
-          </div>
-          <div>
-            <h6 class="">Mini Van</h6>
-          </div>
-        </a>
+      <div class="car-block" id="category-block">
+        <!-- Se llena por JS -->
       </div>
     </div>
   </section>
@@ -229,17 +205,64 @@
   <script src="assets/js/date.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <!-- SCRIPT DINÁMICO CON TU CONFIGURACIÓN DE SUPABASE -->
+  <!-- BLOQUE DINÁMICO DE CATEGORÍAS + BLOGS CON SUPABASE -->
   <script>
-    // ====== TUS DATOS SUPABASE (ya puestos aquí, solo copia/pega) ======
+    // ============ CONFIG SUPABASE ============
     const SUPABASE_URL = 'https://jxtpcfjmpahguudaksld.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4dHBjZmptcGFoZ3V1ZGFrc2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3NjE4NDgsImV4cCI6MjA2NzMzNzg0OH0.5vSPaIM3cwQGyX0xYnaoRMPkdHIdBq_O6rHqwZWKB0Q';
 
-    // Selecciona los contenedores donde irán los autos
+    // CATEGORÍAS QUE MOSTRAR Y SU ICONO
+    const CATEGORIES = [
+      { label: "Motocicletas", icon: "assets/media/hero/moto.png", key: "Motocicleta" },
+      { label: "Sedan", icon: "assets/media/hero/sedan.png", key: "Sedan" },
+      { label: "Coupe", icon: "assets/media/hero/cabriolet.png", key: "Coupe" },
+      { label: "SUV", icon: "assets/media/hero/suv.png", key: "SUV" },
+      { label: "Sports Car", icon: "assets/media/hero/sport-car.png", key: "Sports Car" },
+      { label: "Mini Van", icon: "assets/media/hero/van.png", key: "Mini Van" },
+    ];
+
+    // ==================== HERO CARS BLOCK =====================
+    async function renderCategories() {
+      // Traer autos para contar por categoría y solo los disponibles (stage true)
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/ocars?select=categoria,stage`, {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: 'Bearer ' + SUPABASE_KEY
+        }
+      });
+      const cars = await response.json();
+      // Solo cuenta autos disponibles (stage true)
+      const categoryCounts = {};
+      cars.forEach(car => {
+        if (car.stage === true) {
+          if (!categoryCounts[car.categoria]) categoryCounts[car.categoria] = 0;
+          categoryCounts[car.categoria]++;
+        }
+      });
+
+      // Renderizar
+      const block = document.getElementById('category-block');
+      block.innerHTML = CATEGORIES.map(cat => `
+        <a href="cars.html" class="car-content">
+          <div style="position:relative;">
+            <img src="${cat.icon}" alt="">
+            ${
+              (categoryCounts[cat.key])
+                ? `<span class="notif-bubble">${categoryCounts[cat.key]}</span>`
+                : ''
+            }
+          </div>
+          <div>
+            <h6 class="">${cat.label}</h6>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    // ==================== AUTOS DISPONIBLES/VENDIDOS =====================
     const disponiblesCont = document.querySelector('#nav-desc .row');
     const vendidosCont = document.querySelector('#nav-review .row');
 
-    // Renderiza un auto en formato card
     function autoCard(auto, vendido = false) {
       return `
       <div class="col-xxl-3 col-xl-4 col-sm-6">
@@ -296,7 +319,6 @@
       `;
     }
 
-    // Trae los autos desde Supabase y llena los tabs
     function cargarAutos() {
       fetch(`${SUPABASE_URL}/rest/v1/ocars?select=*`, {
         headers: {
@@ -306,10 +328,8 @@
       })
       .then(res => res.json())
       .then(data => {
-        // Filtrar disponibles y vendidos por el campo "stage" (true/false)
         const disponibles = data.filter(a => a.stage === true);
         const vendidos = data.filter(a => a.stage === false);
-        // Llena cada contenedor
         disponiblesCont.innerHTML = disponibles.length ? disponibles.map(a => autoCard(a, false)).join('') : '<div class="col-12"><p>No hay autos disponibles.</p></div>';
         vendidosCont.innerHTML = vendidos.length ? vendidos.map(a => autoCard(a, true)).join('') : '<div class="col-12"><p>No hay autos vendidos.</p></div>';
       });
@@ -341,7 +361,8 @@
     });
     updateTabBgText();
 
-    // Cargar autos al iniciar
+    // --- Inicializar
+    renderCategories();
     cargarAutos();
   </script>
 
