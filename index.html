@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="assets/css/vendor/jquery.timepicker.min.css">
   <link rel="stylesheet" href="assets/css/app.css">
   <style>
-    /* Preloader */
     .loader {
       background: rgba(255,255,255,1);
       position: fixed;
@@ -29,8 +28,6 @@
       transition: opacity .4s;
     }
     .loader.hidden { opacity: 0; pointer-events: none; }
-
-    /* Categorías: grid y tarjetas */
     .car-block {
       display: grid;
       grid-gap: 2.2rem;
@@ -46,7 +43,6 @@
     @media (max-width: 576px) {
       .car-block { grid-template-columns: repeat(3, 1fr); }
     }
-    /* Imagen categorías */
     .car-content img {
       width: 64px; height: 64px;
       object-fit: contain;
@@ -64,6 +60,12 @@
       font-weight: 600;
       font-size: 1.5rem;
       line-height: 1.1;
+      transition: background .2s;
+      padding: 0.15em 0.6em;
+      border-radius: 0.4em;
+    }
+    .car-content.selected .car-content-label {
+      background: #ffe066 !important;
     }
     .car-badge {
       position: absolute;
@@ -92,7 +94,6 @@
     .car-content:hover {
       background: #FFF3CD;
       border: 3px solid #FFC107;
-      /* sombra */
       box-shadow: 0 4px 24px 0 rgba(255,193,7,0.09);
     }
     .car-content.selected img,
@@ -103,17 +104,31 @@
       .car-content-label { font-size: 1.1rem;}
       .car-badge { font-size: 1rem; min-width: 1.5em; height: 1.5em; right: -1.0em; top: -0.5em;}
     }
-
-    /* Fix footer logo */
     .footer-logo {
-      min-width: 180px; width: 180px; max-width: 220px;
+      min-width: 225px;
+      width: 225px;
+      max-width: 275px;
+      transition: width .2s;
     }
     @media (max-width: 600px) {
-      .footer-logo { min-width: 100px; width: 120px; }
+      .footer-logo { min-width: 125px; width: 150px; }
     }
     .footer-text {
       font-size: 1rem !important;
       font-weight: 400 !important;
+    }
+    .year-highlight {
+      font-weight: bold;
+      font-size: 1.5em;
+      color: #FFC107;
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .ano-label {
+      font-weight: 600;
+      color: #232323;
+      margin-right: 0.2em;
     }
   </style>
 </head>
@@ -220,7 +235,7 @@
                       </div>
                     </div>
                     <div class="nav-line"></div>
-                    <div class="nav-link active reviews" id="nav-review-tab2" data-bs-toggle="tab"
+                    <div class="nav-link reviews" id="nav-review-tab2" data-bs-toggle="tab"
                       data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="true">
                       <div>
                         <h6 class="fw-500">Vendidos</h6>
@@ -234,10 +249,10 @@
         </div>
         <div class="description-wrapper mb-48">
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
+            <div class="tab-pane fade show active" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
               <div class="row row-gap-4" id="row-disponibles"></div>
             </div>
-            <div class="tab-pane fade active show" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
+            <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab2">
               <div class="row row-gap-4" id="row-vendidos"></div>
             </div>
           </div>
@@ -319,13 +334,11 @@
 
     // Renderiza las tarjetas de autos
     function renderAutos() {
-      // Ordena los autos según el orden de categorías
       let ordenCategorias = categorias.map(c => c.categoria);
       let mostrarAutos = autos.filter(a =>
         (tabActual === 'disponibles' ? a.vendido === false : a.vendido === true) &&
         (!categoriaSeleccionada || a.categoria === categoriaSeleccionada)
       );
-      // Ordena autos según la categoría y luego por id DESC
       mostrarAutos.sort((a, b) => {
         let catA = ordenCategorias.indexOf(a.categoria);
         let catB = ordenCategorias.indexOf(b.categoria);
@@ -337,14 +350,28 @@
       const vacio = `<div class="col-12"><p>No hay autos ${tabActual === 'disponibles' ? 'disponibles' : 'vendidos'}.</p></div>`;
       if (tabActual === 'disponibles') disponiblesCont.innerHTML = htmls || vacio;
       else vendidosCont.innerHTML = htmls || vacio;
+      setTimeout(() => {
+        document.querySelectorAll('.contact-whatsapp').forEach(el => {
+          el.onclick = function(e){
+            e.preventDefault();
+            const { marca, modelo, year, whatsapp } = el.dataset;
+            let mensaje = `¡Hola! Estoy interesado en el vehículo: ${marca || ''} ${modelo || ''} Año: ${year || ''}`;
+            let link = `https://wa.me/502${whatsapp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(link, '_blank');
+          }
+        });
+      }, 80);
     }
 
-    // Renderiza las categorías con burbujas
+    // Renderiza todas las categorías SIEMPRE, pero solo muestra burbuja si hay registros
     function renderCategorias() {
-      // Cuenta autos disponibles x categoría
       const countByCat = {};
       for (const a of autos) {
-        if (!a.vendido && !a.INACTIVE) countByCat[a.categoria] = (countByCat[a.categoria] || 0) + 1;
+        if (tabActual === 'disponibles') {
+          if (!a.vendido && !a.INACTIVE) countByCat[a.categoria] = (countByCat[a.categoria] || 0) + 1;
+        } else {
+          if (a.vendido && !a.INACTIVE) countByCat[a.categoria] = (countByCat[a.categoria] || 0) + 1;
+        }
       }
       carCatBlock.innerHTML = categorias.map(cat => {
         const qty = countByCat[cat.categoria] || 0;
@@ -358,7 +385,6 @@
           </div>
         `;
       }).join('');
-      // Click handlers
       Array.from(carCatBlock.children).forEach(node => {
         node.onclick = function() {
           const sel = this.getAttribute('data-cat');
@@ -373,7 +399,6 @@
       });
     }
 
-    // Renderiza una tarjeta de auto
     function autoCard(auto, vendido = false) {
       return `
         <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-12">
@@ -414,18 +439,19 @@
               </div>
               <div class="d-flex align-items-center justify-content-between mt-2">
                 <div>
-                  <span class="fw-600">${auto.year ? `<span style="font-weight: bold;">${auto.year}</span>` : ''}</span>
+                  ${auto.year ? `<span class="ano-label">Año:</span> <span class="year-highlight">${auto.year}</span>` : ''}
                 </div>
                 <div>
-                  ${!vendido ? `
-                    <a href="https://wa.me/502${auto.whatsapp || ''}" target="_blank" class="hover-content" title="Contáctame por WhatsApp" style="text-decoration:none;display:flex;align-items:center;gap:4px;">
+                  ${vendido ? `
+                    <span style="color:#e60000;font-weight:700;display:flex;align-items:center;gap:6px;font-size:1.2em;">VENDIDO</span>
+                  ` : `
+                    <a href="#" class="hover-content contact-whatsapp" 
+                        data-marca="${auto.marca || ''}" data-modelo="${auto.modelo || ''}" 
+                        data-year="${auto.year || ''}" data-whatsapp="${auto.whatsapp || ''}"
+                        style="text-decoration:none;display:flex;align-items:center;gap:4px;">
                       <span style="color:#232323;">Contáctanos:</span>
                       <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:2em;margin-left:4px;"></i>
                     </a>
-                  ` : `
-                    <span style="color:#aaa;display:flex;align-items:center;gap:4px;">Contáctanos:
-                      <i class="fa-brands fa-whatsapp" style="color:#bbb;font-size:2em;margin-left:4px;pointer-events:none;opacity:0.5;"></i>
-                    </span>
                   `}
                 </div>
               </div>
@@ -435,7 +461,6 @@
       `;
     }
 
-    // --------- Control visual de pestañas ---------
     function updateTabBgText() {
       var descTab = document.getElementById('nav-desc-tab');
       var reviewTab = document.getElementById('nav-review-tab2');
@@ -448,22 +473,42 @@
         bg.textContent = 'VENDIDOS';
         tabActual = 'vendidos';
       }
+      categoriaSeleccionada = null; // Reinicia filtro al cambiar tab
+      renderCategorias();
       renderAutos();
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        var descTab = document.getElementById('nav-desc-tab');
+        var reviewTab = document.getElementById('nav-review-tab2');
+        var navDesc = document.getElementById('nav-desc');
+        var navReview = document.getElementById('nav-review');
+        descTab.classList.add('active');
+        reviewTab.classList.remove('active');
+        navDesc.classList.add('show', 'active');
+        navReview.classList.remove('show', 'active');
+        updateTabBgText();
+      }, 10);
+    });
+
     var descTab = document.getElementById('nav-desc-tab');
     var reviewTab = document.getElementById('nav-review-tab2');
     descTab && descTab.addEventListener('click', function () {
       descTab.classList.add('active');
       reviewTab.classList.remove('active');
+      document.getElementById('nav-desc').classList.add('show', 'active');
+      document.getElementById('nav-review').classList.remove('show', 'active');
       updateTabBgText();
     });
     reviewTab && reviewTab.addEventListener('click', function () {
       reviewTab.classList.add('active');
       descTab.classList.remove('active');
+      document.getElementById('nav-desc').classList.remove('show', 'active');
+      document.getElementById('nav-review').classList.add('show', 'active');
       updateTabBgText();
     });
 
-    // Inicia todo
     async function inicializar() {
       await cargarCategorias();
       await cargarAutos();
