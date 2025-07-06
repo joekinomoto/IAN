@@ -12,9 +12,12 @@
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="assets/media/favicon.png">
 
-  <!-- All CSS files -->
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
+  <!-- All CSS files -->
+  <!-- <link rel="stylesheet" href="assets/css/vendor/font-awesome.css"> -->
   <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/vendor/slick.css">
   <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
@@ -131,7 +134,10 @@
     <section class="hero-banner">
       <div class="container-fluid">
         <div class="hero-content">
-          <!-- Fondo restaurado, sin el contenido del formulario ni el texto -->
+          <div class="heading text-lg-start text-center my-4">
+            <p class="mb-4 text-white">¿Estás listo para elegir el vehículo que te llevará a la libertad?</p>
+            <h4 class="text-white">Elige la libertad. Elige tu vehículo.</h4>
+          </div>
         </div>
       </div>
     </section>
@@ -196,26 +202,33 @@
 
     <!-- BLOG Section START -->
     <section class="blog-sec py-80">
-      <div class="container-fluid">
+      <div class="container-fluid position-relative">
         <div class="d-flex flex-wrap row-gap-4 justify-content-lg-between justify-content-center align-items-end mb-48">
           <div class="heading text-lg-start text-center">
-            <p class="color-sec mb-4">Why We are Specialized Why Choose Us?</p>
-            <h4 class="black">Why We are Specialized Why Choose Us?</h4>
+            <p class="color-sec mb-4"></p>
+            <h4 class="black"></h4>
           </div>
-          <nav class="nav-cotent">
-            <div class="d-flex gap-16 align-items-center">
-              <div class="nav nav-tabs active reviews" id="nav-tab" role="tablist">
-                <div class="nav-link  discription" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
-                  role="tab" aria-controls="nav-desc" aria-selected="false">
-                  <div>
-                    <h6 class="fw-500">Disponibles</h6>
-                  </div>
+          <nav class="nav-cotent position-relative" style="z-index:1;">
+            <div style="position:relative;display:inline-block;">
+              <div class="tab-bg-text-wrapper" style="position:relative;">
+                <div id="tab-bg-text" class="tab-bg-text" style="position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:clamp(2rem,7vw,5rem);font-weight:900;color:#b0b0b0;opacity:0.25;transition:all 0.4s;line-height:1;white-space:nowrap;">
+                  <!-- El texto se actualizará por JS -->
                 </div>
-                <div class="nav-line"></div>
-                <div class="nav-link active reviews" id="nav-review-tab2" data-bs-toggle="tab"
-                  data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="true">
-                  <div>
-                    <h6 class="fw-500">Vendidos</h6>
+                <div class="d-flex gap-16 align-items-center position-relative" style="z-index:1;">
+                  <div class="nav nav-tabs active reviews" id="nav-tab" role="tablist">
+                    <div class="nav-link  discription" id="nav-desc-tab" data-bs-toggle="tab" data-bs-target="#nav-desc"
+                      role="tab" aria-controls="nav-desc" aria-selected="false">
+                      <div>
+                        <h6 class="fw-500">Disponibles</h6>
+                      </div>
+                    </div>
+                    <div class="nav-line"></div>
+                    <div class="nav-link active reviews" id="nav-review-tab2" data-bs-toggle="tab"
+                      data-bs-target="#nav-review" role="tab" aria-controls="nav-review" aria-selected="true">
+                      <div>
+                        <h6 class="fw-500">Vendidos</h6>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -268,7 +281,9 @@
                               class="h6 color-primary"><i class="fa-solid fa-star"></i> </span> </p>
                         </div>
                         <div>
-                          <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
+                          <a href="https://wa.me/50230237017" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                            <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:1.5em;"></i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -316,7 +331,9 @@
                               class="h6 color-primary"><i class="fa-solid fa-star"></i> </span> </p>
                         </div>
                         <div>
-                          <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
+                          <a href="https://wa.me/50230237017" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                            <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:1.5em;"></i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -364,7 +381,9 @@
                               class="h6 color-primary"><i class="fa-solid fa-star"></i> </span> </p>
                         </div>
                         <div>
-                          <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
+                          <a href="https://wa.me/50230237017" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                            <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:1.5em;"></i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -376,9 +395,10 @@
               <div class="row row-gap-4">
                 <div class="col-xxl-3 col-xl-4 col-sm-6">
                   <div class="blog-1">
-                    <div class="blog-img">
+                    <div class="blog-img" style="position:relative;">
+                      <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-20deg);background:rgba(220,53,69,0.85);color:#fff;font-size:clamp(1.5rem,4vw,2rem);font-weight:900;padding:0.5em 1.7em;border-radius:0.3em;z-index:2;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);letter-spacing:0.1em;white-space:nowrap;">VENDIDO</span>
                       <a href="car-details.html">
-                        <img src="assets/media/blog/blog-1.jpg" alt="">
+                        <img src="assets/media/blog/blog-1.jpg" alt="" style="opacity:0.25;">
                       </a>
                     </div>
                     <div class="blog-content">
@@ -416,7 +436,9 @@
                               class="h6 color-primary"><i class="fa-solid fa-star"></i> </span> </p>
                         </div>
                         <div>
-                          <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
+                          <a href="https://wa.me/50230237017" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                            <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:1.5em;"></i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -424,9 +446,10 @@
                 </div>
                 <div class="col-xxl-3 col-xl-4 col-sm-6">
                   <div class="blog-1">
-                    <div class="blog-img">
+                    <div class="blog-img" style="position:relative;">
+                      <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-20deg);background:rgba(220,53,69,0.85);color:#fff;font-size:clamp(1.5rem,4vw,2rem);font-weight:900;padding:0.5em 1.7em;border-radius:0.3em;z-index:2;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);letter-spacing:0.1em;white-space:nowrap;">VENDIDO</span>
                       <a href="car-details.html">
-                        <img src="assets/media/blog/blog-2.jpg" alt="">
+                        <img src="assets/media/blog/blog-2.jpg" alt="" style="opacity:0.25;">
                       </a>
                     </div>
                     <div class="blog-content">
@@ -458,23 +481,15 @@
                         </div>
 
                       </div>
-                      <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                          <p class="black">Reviews : <span class="h6 fw-500">4.7 </span> <span
-                              class="h6 color-primary"><i class="fa-solid fa-star"></i> </span> </p>
-                        </div>
-                        <div>
-                          <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
-                        </div>
+                     <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <span class="black me-2">Contáctanos:</span>
+                        <a href="https://wa.me/50230237017" target="_blank" class="text-decoration-underline p hover-content" title="Contáctame por WhatsApp">
+                          <i class="fa-brands fa-whatsapp" style="color:#25D366;font-size:1.5em;"></i>
+                        </a>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-sm-6">
-                  <div class="blog-1">
-                    <div class="blog-img">
-                    </div>
-                    <div class="blog-content">
+
                     </div>
                   </div>
                 </div>
@@ -507,15 +522,15 @@
     <section class="drive-comfort-sec py-80">
       <div class="container-fluid">
         <div class="cars-block-bg">
-          <h1 class="black mb-24 text-center">Drive Comfort, Feel the Joy</h1>
+          <h1 class="black mb-24 text-center">Confort en la ciudad, libertad en la ruta</h1>
           <div class="drive-comfort">
             <div class="car-block-1">
-              <h2 class="car-name">E-TRON GT</h2>
+              <h2 class="car-name">XPulse 200T</h2>
               <div class="img-block">
                 <img src="assets/media/drive-comfort/car-1.png" alt="">
               </div>
               <a href="car-details.html" class="car-link">
-                <p class="fw-600 white link-text">View More</p>
+                <p class="fw-600 white link-text">Ver más</p>
               </a>
               <div class="container-fluid">
                 <div class="block-content">
@@ -529,16 +544,16 @@
                   </div>
                   <div class="d-flex align-items-center gap-90 flex-wrap row-gap-4">
                     <div>
-                      <h4 class="black fw-600">350 Km</h4>
-                      <h6 class="black fw-600">Range Upto</h6>
+                      <h4 class="black fw-600">199.6 CC</h4>
+                      <h6 class="black fw-600">Cilindrada</h6>
                     </div>
                     <div>
-                      <h4 class="black fw-600">400 Kw</h4>
-                      <h6 class="black fw-600">Power Upto</h6>
+                      <h4 class="black fw-600">18.1 HP a 8,000 rpm</h4>
+                      <h6 class="black fw-600">Potencia máxima</h6>
                     </div>
                     <div>
-                      <h4 class="black fw-600">13500 Lbs</h4>
-                      <h6 class="black fw-600">Towing Upto</h6>
+                      <h4 class="black fw-600">600 Km</h4>
+                      <h6 class="black fw-600">Autonomía/tanque</h6>
                     </div>
                   </div>
                   <div class="slider-arrows-content">
@@ -669,748 +684,7 @@
       </div>
     </section>
 
-    <!-- Popular Cars Section Start -->
-    <section class="popular-car-sec py-80">
-      <div class="container-fluid">
-        <div class="mb-48">
-          <p class="mb-8">Explore Our Premium Fleet</p>
-          <h4>Our Most Popular Cars</h4>
-        </div>
-        <div class="toggleTab">
-          <div class="car-nav-tabs">
-            <div class="slider slider-nav mb-24">
-              <div>
-                <div class="nav-small-cars">
-                  <h6 class="light-gray mb-12 hover-content ">Hyundai Tucson</h6>
-                  <img src="assets/media/popular-cars/img-1.png" alt="">
-                </div>
-              </div>
-              <div>
-                <div class="nav-small-cars">
-                  <h6 class="light-gray mb-12 hover-content">Civic</h6>
-                  <img src="assets/media/popular-cars/img-2.png" alt="">
-                </div>
-              </div>
-              <div>
-                <div class="nav-small-cars">
-                  <h6 class="light-gray mb-12 hover-content">Ford Skyline</h6>
-                  <img src="assets/media/popular-cars/img-3.png" alt="">
-                </div>
-              </div>
-              <div>
-                <div class="nav-small-cars">
-                  <h6 class="light-gray mb-12 hover-content">BMW M-3</h6>
-                  <img src="assets/media/popular-cars/img-4.png" alt="">
-                </div>
-              </div>
-              <div>
-                <div class="nav-small-cars">
-                  <h6 class="light-gray mb-12 hover-content">Nissan Nismo</h6>
-                  <img src="assets/media/popular-cars/img-5.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="slider slider-single">
-              <div>
-                <div class="full-car-content mb-48">
-                  <img src="assets/media/popular-cars/full-img-1.png" alt="">
-                  <div class="car-content">
-                    <div class="car-price">
-                      <div>
-                        <h2 class="mb-12">600 <span class="h5 fw-500">Hp</span></h2>
-                        <h6 class="">Maximum Power</h6>
-                      </div>
-                      <div>
-                        <h2>$40/hr</h2>
-                      </div>
-                    </div>
-                    <div class="car-price-2">
-                      <div>
-                        <h3 class="speed-font">0-100 mph</h3>
-                        <h2 class="fw-500">In 9.45 sec</h2>
-                      </div>
-                      <div>
-                        <a href="cars.html" class="cus-btn-2">Learn More</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="row row-gap-4">
-                    <div class="col-lg-4">
-                      <div class="d-flex align-items-center gap-16">
-                        <div class="car-label">
-                          <p class="fw-600 black">EV</p>
-                        </div>
-                        <div class="car-label">
-                          <p class="fw-600 black">Petrol</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <h5 class="black">Audi E-Tron: This mid-sized luxury electric SUV offers a range of about 222
-                        miles on a full charge. It is a high-performance electric sedan that shares its platform with
-                        the Porsche Taycan.</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="full-car-content mb-48">
-                  <img src="assets/media/popular-cars/full-img-2.png" alt="">
-                  <div class="car-content">
-                    <div class="car-price">
-                      <div>
-                        <h2 class="mb-12">800 <span class="h5 fw-500">Hp</span></h2>
-                        <h6 class="">Maximum Power</h6>
-                      </div>
-                      <div>
-                        <h2>$50/hr</h2>
-                      </div>
-                    </div>
-                    <div class="car-price-2">
-                      <div>
-                        <h3 class="speed-font">0-200 mph</h3>
-                        <h2 class="fw-500">In 9.45 sec</h2>
-                      </div>
-                      <div>
-                        <a href="cars.html" class="cus-btn-2">Learn More</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="row row-gap-4">
-                    <div class="col-lg-4">
-                      <div class="d-flex align-items-center gap-16">
-                        <div class="car-label">
-                          <p class="fw-600 black">EV</p>
-                        </div>
-                        <div class="car-label">
-                          <p class="fw-600 black">Petrol</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <h5 class="black">Audi E-Tron: This mid-sized luxury electric SUV offers a range of about 222
-                        miles on a full charge. It is a high-performance electric sedan that shares its platform with
-                        the Porsche Taycan.</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="full-car-content mb-48">
-                  <img src="assets/media/popular-cars/full-img-3.png" alt="">
-                  <div class="car-content">
-                    <div class="car-price">
-                      <div>
-                        <h2 class="mb-12">600 <span class="h5 fw-500">Hp</span></h2>
-                        <h6 class="">Maximum Power</h6>
-                      </div>
-                      <div>
-                        <h2>$40/hr</h2>
-                      </div>
-                    </div>
-                    <div class="car-price-2">
-                      <div>
-                        <h3 class="speed-font">0-100 mph</h3>
-                        <h2 class="fw-500">In 9.45 sec</h2>
-                      </div>
-                      <div>
-                        <a href="cars.html" class="cus-btn-2">Learn More</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="row row-gap-4">
-                    <div class="col-lg-4">
-                      <div class="d-flex align-items-center gap-16">
-                        <div class="car-label">
-                          <p class="fw-600 black">EV</p>
-                        </div>
-                        <div class="car-label">
-                          <p class="fw-600 black">Petrol</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <h5 class="black">Audi E-Tron: This mid-sized luxury electric SUV offers a range of about 222
-                        miles on a full charge. It is a high-performance electric sedan that shares its platform with
-                        the Porsche Taycan.</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="full-car-content mb-48">
-                  <img src="assets/media/popular-cars/full-img-4.png" alt="">
-                  <div class="car-content">
-                    <div class="car-price">
-                      <div>
-                        <h2 class="mb-12">700 <span class="h5 fw-500">Hp</span></h2>
-                        <h6 class="">Maximum Power</h6>
-                      </div>
-                      <div>
-                        <h2>$30/hr</h2>
-                      </div>
-                    </div>
-                    <div class="car-price-2">
-                      <div>
-                        <h3 class="speed-font">0-200 mph</h3>
-                        <h2 class="fw-500">In 6.45 sec</h2>
-                      </div>
-                      <div>
-                        <a href="cars.html" class="cus-btn-2">Learn More</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="row row-gap-4">
-                    <div class="col-lg-4">
-                      <div class="d-flex align-items-center gap-16">
-                        <div class="car-label">
-                          <p class="fw-600 black">EV</p>
-                        </div>
-                        <div class="car-label">
-                          <p class="fw-600 black">Petrol</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <h5 class="black">Audi E-Tron: This mid-sized luxury electric SUV offers a range of about 222
-                        miles on a full charge. It is a high-performance electric sedan that shares its platform with
-                        the Porsche Taycan.</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="full-car-content mb-48">
-                  <img src="assets/media/popular-cars/full-img-5.png" alt="">
-                  <div class="car-content">
-                    <div class="car-price">
-                      <div>
-                        <h2 class="mb-12">500 <span class="h5 fw-500">Hp</span></h2>
-                        <h6 class="">Maximum Power</h6>
-                      </div>
-                      <div>
-                        <h2>$45/hr</h2>
-                      </div>
-                    </div>
-                    <div class="car-price-2">
-                      <div>
-                        <h3 class="speed-font">0-120 mph</h3>
-                        <h2 class="fw-500">In 6.45 sec</h2>
-                      </div>
-                      <div>
-                        <a href="cars.html" class="cus-btn-2">Learn More</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="row row-gap-4">
-                    <div class="col-lg-4">
-                      <div class="d-flex align-items-center gap-16">
-                        <div class="car-label">
-                          <p class="fw-600 black">EV</p>
-                        </div>
-                        <div class="car-label">
-                          <p class="fw-600 black">Petrol</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-8">
-                      <h5 class="black">Audi E-Tron: This mid-sized luxury electric SUV offers a range of about 222
-                        miles on a full charge. It is a high-performance electric sedan that shares its platform with
-                        the Porsche Taycan.</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Popular Cars Section END -->
 
-    <!-- why Choose Us Section Start -->
-    <section class="why-choose-sec py-80">
-      <div class="container-fluid">
-        <div>
-          <div class="row row-gap-4">
-            <div class="col-xl-4 col-lg-5">
-              <div class="why-choose-img">
-                <img class="br-12" src="assets/media/why-choose/pricing-card.jpg" alt="">
-                <div class="img-content">
-                  <div class="d-flex align-items-center gap-16">
-                    <div>
-                      <img src="assets/media/icons/telephone.png" alt="">
-                    </div>
-                    <div>
-                      <h6 class="black fw-600 phone-num mb-24">Toll-Free Number</h6>
-                      <a href="tel:+15451515184" class="fw-500 hover-content black phone-num">+1 (545) 151-5184</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-8 col-lg-7">
-              <div class="mb-48">
-                <p class="black mb-8">Experience Excellence Every Mile of the Way</p>
-                <h4 class="black">Why Choose Us for Your Car Rental Needs?</h4>
-              </div>
-              <div class="accordions-block">
-                <div id="accordionExample">
-                  <div class="faq-block">
-                    <a href="faq.html" class="accordions" data-bs-toggle="collapse" data-bs-target="#faq1"
-                      aria-expanded="true" aria-controls="faq1">
-                      <div class="accordion-button">
-                        <h5 class="fw-500">1 &nbsp; &nbsp; Why Choose Us for Your Car Rental Needs?</h5>
-                        <div class="accordian-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="27" height="17" viewBox="0 0 27 17"
-                            fill="none">
-                            <path
-                              d="M18.2456 16.6861C18.2456 13.3177 22.1754 8.82645 26.6667 8.82645M26.6667 8.82645C24.0936 8.82645 18.2456 7.70364 18.2456 0.966797M26.6667 8.82645H0"
-                              stroke="#FAFAFA" stroke-width="2.24561" />
-                        </div>
-                      </div>
-                    </a>
-                    <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1"
-                      data-bs-parent="#accordionExample">
-                      <p class="black">Lorem Ipsum is simply placeholder text used in the printing and typesetting
-                        industry. It has been the standard dummy text since the 1500s when an unknown printer scrambled
-                        a galley of type to create a type specimen book.</p>
-                    </div>
-                  </div>
-                  <div class="hr-line"></div>
-
-                  <div class="faq-block">
-                    <a href="faq.html" class="accordions collapsed" data-bs-toggle="collapse" data-bs-target="#faq2"
-                      aria-expanded="false" aria-controls="faq2">
-                      <div class="accordion-button">
-                        <h5 class="fw-500">2 &nbsp; &nbsp; Why Choose Us for Your Car Rental Needs?</h5>
-                        <div class="accordian-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="27" height="17" viewBox="0 0 27 17"
-                            fill="none">
-                            <path
-                              d="M18.2456 16.6861C18.2456 13.3177 22.1754 8.82645 26.6667 8.82645M26.6667 8.82645C24.0936 8.82645 18.2456 7.70364 18.2456 0.966797M26.6667 8.82645H0"
-                              stroke="#FAFAFA" stroke-width="2.24561" />
-                        </div>
-                      </div>
-                    </a>
-                    <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2"
-                      data-bs-parent="#accordionExample">
-                      <p class="black">Lorem Ipsum is simply placeholder text used in the printing and typesetting
-                        industry. It has been the standard dummy text since the 1500s when an unknown printer scrambled
-                        a galley of type to create a type specimen book.</p>
-                    </div>
-                  </div>
-                  <div class="hr-line"></div>
-
-                  <div class="faq-block">
-                    <a href="faq.html" class="accordions collapsed" data-bs-toggle="collapse" data-bs-target="#faq3"
-                      aria-expanded="false" aria-controls="faq3">
-                      <div class="accordion-button">
-                        <h5 class="fw-500">3 &nbsp; &nbsp; Why Choose Us for Your Car Rental Needs?</h5>
-                        <div class="accordian-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="27" height="17" viewBox="0 0 27 17"
-                            fill="none">
-                            <path
-                              d="M18.2456 16.6861C18.2456 13.3177 22.1754 8.82645 26.6667 8.82645M26.6667 8.82645C24.0936 8.82645 18.2456 7.70364 18.2456 0.966797M26.6667 8.82645H0"
-                              stroke="#FAFAFA" stroke-width="2.24561" />
-                        </div>
-                      </div>
-                    </a>
-                    <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3"
-                      data-bs-parent="#accordionExample">
-                      <p class="black">Lorem Ipsum is simply placeholder text used in the printing and typesetting
-                        industry. It has been the standard dummy text since the 1500s when an unknown printer scrambled
-                        a galley of type to create a type specimen book.</p>
-                    </div>
-                  </div>
-                  <div class="hr-line"></div>
-
-                  <div class="faq-block">
-                    <a href="faq.html" class="accordions collapsed" data-bs-toggle="collapse" data-bs-target="#faq4"
-                      aria-expanded="false" aria-controls="faq4">
-                      <div class="accordion-button">
-                        <h5 class="fw-500">4 &nbsp; &nbsp; Why Choose Us for Your Car Rental Needs?</h5>
-                        <div class="accordian-btn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="27" height="17" viewBox="0 0 27 17"
-                            fill="none">
-                            <path
-                              d="M18.2456 16.6861C18.2456 13.3177 22.1754 8.82645 26.6667 8.82645M26.6667 8.82645C24.0936 8.82645 18.2456 7.70364 18.2456 0.966797M26.6667 8.82645H0"
-                              stroke="#FAFAFA" stroke-width="2.24561" />
-                        </div>
-                      </div>
-                    </a>
-                    <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4"
-                      data-bs-parent="#accordionExample">
-                      <p class="black">Lorem Ipsum is simply placeholder text used in the printing and typesetting
-                        industry. It has been the standard dummy text since the 1500s when an unknown printer scrambled
-                        a galley of type to create a type specimen book.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-            <div class="blog-1">
-              <div class="blog-img">
-                <a href="blog-detail.html">
-                  <img src="assets/media/blog/blog-7.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="subtitle black mb-4">Sedan</p>
-                <div class="d-flex align-items-center justify-content-between mb-36">
-                  <a href="car-details.html" class="h6 hover-content fw-500 black">2024 Toyota Camry</a>
-                  <h5 class="fw-600 color-primary">$26/ Hr</h5>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-36">
-                  <div>
-                    <div class="d-flex align-items-center gap-16 mb-16">
-                      <img src="assets/media/icons/manual-transmission.png" alt="">
-                      <p class="fw-600 black">Automatic</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-16">
-                      <img src="assets/media/icons/disc-brake.png" alt="">
-                      <p class="fw-600 black">ABS Brakes</p>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="d-flex align-items-center gap-16 mb-16">
-                      <img src="assets/media/icons/speedometer.png" alt="">
-                      <p class="fw-600 black">45000 Kms</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-16">
-                      <img src="assets/media/icons/fuel.png" alt="">
-                      <p class="fw-600 black">Petrol</p>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <p class="black">Reviews : <span class="h6 fw-500">4.7 </span> <span class="h6 color-primary"><i
-                          class="fa-solid fa-star"></i> </span> </p>
-                  </div>
-                  <div>
-                    <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xxl-3 col-xl-4 col-sm-6  d-xxl-block d-none">
-            <div class="blog-1">
-              <div class="blog-img">
-                <a href="car-details.html">
-                  <img src="assets/media/blog/blog-8.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="subtitle black mb-4">Sedan</p>
-                <div class="d-flex align-items-center justify-content-between mb-36">
-                  <a href="car-details.html" class="h6 hover-content fw-500 black">Subaru Outback</a>
-                  <h5 class="fw-600 color-primary">$35/ Hr</h5>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-36">
-                  <div>
-                    <div class="d-flex align-items-center gap-16 mb-16">
-                      <img src="assets/media/icons/manual-transmission.png" alt="">
-                      <p class="fw-600 black">Automatic</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-16">
-                      <img src="assets/media/icons/disc-brake.png" alt="">
-                      <p class="fw-600 black">ABS Brakes</p>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="d-flex align-items-center gap-16 mb-16">
-                      <img src="assets/media/icons/speedometer.png" alt="">
-                      <p class="fw-600 black">45000 Kms</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-16">
-                      <img src="assets/media/icons/fuel.png" alt="">
-                      <p class="fw-600 black">Petrol</p>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <p class="black">Reviews : <span class="h6 fw-500">4.7 </span> <span class="h6 color-primary"><i
-                          class="fa-solid fa-star"></i> </span> </p>
-                  </div>
-                  <div>
-                    <a href="car-details.html" class="text-decoration-underline p hover-content">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Fleets END -->
-    <!-- banner Section START -->
-    <section class="banner-1-sec py-80">
-      <div class="container-fluid">
-        <div class="banner-block">
-          <div>
-            <h2>Get the keys to your<br>adventure Rent</h2>
-          </div>
-          <!-- <div class="banner-icon">
-            <img src="assets/media/about/banner-1.png" alt="">
-          </div> -->
-          <div>
-            <a href="contact.html" class="cus-btn-2 bg-black white">Reserve a Slot</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- banner Section END -->
-
-    <!-- car updates section START -->
-    <section class="car-blog-update py-80">
-      <div class="container-fluid">
-        <div class="mb-48">
-          <p class="mb-8">Stay Updated with the Latest Trends</p>
-          <h4>Insights & Tips for Car Enthusiasts</h4>
-        </div>
-        <div class="row align-items-center row-gap-4">
-          <div class="col-xxl-3 col-xl-4 col-sm-6">
-            <div class="update-blog">
-              <div>
-                <a href="blog-detail.html" class="blog-img">
-                  <img src="assets/media/blog/update-blog-1.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="dark-gray mb-4 subtitle">25th November, 2024</p>
-                <a href="blog-detail.html" class="mb-16 hover-content fw-600">How to Plan the Perfect Cross-Country Road
-                  Trip
-                  by Car</a>
-                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-4 mb-16">
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/blog/img.png" alt="">
-                    <p class="subtitle">By Emily</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/comment.png" alt="">
-                    <p class="subtitle">Comments</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/eye.png" alt="">
-                    <p class="subtitle">Views</p>
-                  </div>
-                </div>
-                <p class="mb-32">Lorem Ipsum is simply placeholder text used in the printing industry.</p>
-                <div class="text-end">
-                  <a href="blog-detail.html" class="text-end hover-content">
-                    <span class="p fw-600">Read More</span>
-                    <span><i class="fa-regular fa-arrow-right"></i>
-                    </span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xxl-3 col-xl-4 col-sm-6">
-            <div class="update-blog">
-              <div>
-                <a href="blog-detail.html" class="blog-img">
-                  <img src="assets/media/blog/update-blog-2.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="dark-gray mb-4 subtitle">25th November, 2024</p>
-                <a href="blog-detail.html" class="mb-16 hover-content fw-600">How to Plan the Perfect Cross-Country Road
-                  Trip
-                  by Car</a>
-                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-4 mb-16">
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/blog/img.png" alt="">
-                    <p class="subtitle">By Emily</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/comment.png" alt="">
-                    <p class="subtitle">Comments</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/eye.png" alt="">
-                    <p class="subtitle">Views</p>
-                  </div>
-                </div>
-                <p class="mb-32">Lorem Ipsum is simply placeholder text used in the printing industry.</p>
-                <div class="text-end">
-                  <a href="blog-detail.html" class="text-end hover-content">
-                    <span class="p fw-600">Read More</span>
-                    <span><i class="fa-regular fa-arrow-right"></i>
-                    </span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xxl-3 col-xl-4 col-sm-6">
-            <div class="update-blog">
-              <div>
-                <a href="blog-detail.html" class="blog-img">
-                  <img src="assets/media/blog/update-blog-3.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="dark-gray mb-4 subtitle">25th November, 2024</p>
-                <a href="blog-detail.html" class="mb-16 hover-content fw-600">How to Plan the Perfect Cross-Country Road
-                  Trip
-                  by Car</a>
-                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-4 mb-16">
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/blog/img.png" alt="">
-                    <p class="subtitle">By Emily</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/comment.png" alt="">
-                    <p class="subtitle">Comments</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/eye.png" alt="">
-                    <p class="subtitle">Views</p>
-                  </div>
-                </div>
-                <p class="mb-32">Lorem Ipsum is simply placeholder text used in the printing industry.</p>
-                <div class="text-end">
-                  <a href="blog-detail.html" class="text-end hover-content">
-                    <span class="p fw-600">Read More</span>
-                    <span><i class="fa-regular fa-arrow-right"></i>
-                    </span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xxl-3 col-xl-4 col-sm-6  d-xxl-block d-none">
-            <div class="update-blog">
-              <div>
-                <a href="blog-detail.html" class="blog-img">
-                  <img src="assets/media/blog/update-blog-4.jpg" alt="">
-                </a>
-              </div>
-              <div class="blog-content">
-                <p class="dark-gray mb-4 subtitle">25th November, 2024</p>
-                <a href="blog-detail.html" class="mb-16 hover-content fw-600">How to Plan the Perfect Cross-Country Road
-                  Trip
-                  by Car</a>
-                <div class="d-flex align-items-center justify-content-between flex-wrap row-gap-4 mb-16">
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/blog/img.png" alt="">
-                    <p class="subtitle">By Emily</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/comment.png" alt="">
-                    <p class="subtitle">Comments</p>
-                  </div>
-                  <div class="d-flex align-items-center gap-8">
-                    <img src="assets/media/vector/eye.png" alt="">
-                    <p class="subtitle">Views</p>
-                  </div>
-                </div>
-                <p class="mb-32">Lorem Ipsum is simply placeholder text used in the printing industry.</p>
-                <div class="text-end">
-                  <a href="blog-detail.html" class="text-end hover-content">
-                    <span class="p fw-600">Read More</span>
-                    <span><i class="fa-regular fa-arrow-right"></i>
-                    </span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- car updates section END -->
-
-    <!-- Not Sure About Something this Section START -->
-    <section class="contect-sec py-80">
-      <div class="container-fluid">
-        <div class="row align-items-center row-gap-4">
-          <div class="col-lg-6">
-            <div class="call-book-img">
-              <img class="br-16" src="assets/media/why-choose/book-cell.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div>
-              <div class="mb-48">
-                <p class="mb-8">Not Sure About Something?</p>
-                <h4>Get a Call Back From Us.</h4>
-              </div>
-              <form action="post" class="contact-form">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="input-block mb-24">
-                      <input type="text" name="name" id="name" placeholder="First Name" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="input-block mb-24">
-                      <input type="text" id="lsname" placeholder="Last Name " class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="input-block mb-24">
-                      <input type="tel" name="phone" id="phoneNumber2" class="form-control" placeholder="Phone Number"
-                        required>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-                        <g clip-path="url(#clip0_11533_18105)">
-                          <path
-                            d="M16.2509 16.0089L15.8338 15.3124C15.0836 14.0756 14.0484 12.6561 12.6904 12.6561C12.4389 12.6561 12.1897 12.7067 11.9431 12.8092L11.2142 13.1217C11.1477 13.1493 11.083 13.1807 11.0145 13.214C10.828 13.3048 10.6165 13.4075 10.3989 13.4075C9.86217 13.4075 9.2403 12.709 8.64811 11.4409C8.06692 10.1961 8.10399 9.54359 8.23741 9.21525C8.38462 8.85299 8.72695 8.69811 9.09471 8.55892C9.14585 8.53953 9.19204 8.52194 9.23696 8.50345L9.97501 8.19269C11.8978 7.38861 11.1825 4.57866 10.948 3.6574L10.7491 2.86532C10.579 2.21251 10.1282 0.478516 8.63277 0.478516C8.35594 0.478516 8.06061 0.543012 7.75527 0.67029C7.55492 0.74985 4.79792 1.87524 3.79909 3.85234C2.60532 6.20568 2.82605 9.36147 4.45451 13.2301C6.07079 17.1035 8.16669 19.4727 10.684 20.2718C11.1158 20.409 11.6038 20.4784 12.1346 20.4784H12.1349C13.8721 20.4784 15.587 19.7393 15.7262 19.678C16.3251 19.4242 16.7123 19.0386 16.8768 18.5317C17.1557 17.6722 16.6878 16.7304 16.2509 16.0089ZM15.5897 18.1141C15.5514 18.2319 15.4185 18.3394 15.1948 18.4336C15.1911 18.4352 15.1866 18.4371 15.1828 18.4388C15.1673 18.4457 13.615 19.1255 12.1345 19.1255C11.7428 19.1255 11.3926 19.0773 11.0935 18.9822C8.97266 18.309 7.1592 16.1985 5.70231 12.7071C4.23459 9.22012 4.00006 6.44688 5.0062 4.46347C5.78746 2.9171 8.23335 1.93613 8.25734 1.92675C8.26221 1.92476 8.26699 1.92287 8.27177 1.92088C8.41105 1.86243 8.53589 1.83158 8.63277 1.83158C8.9309 1.83158 9.20223 2.29397 9.43803 3.20025L9.63602 3.989C10.0632 5.66679 9.99819 6.71623 9.45129 6.94499L8.71675 7.25439C8.68753 7.26648 8.65334 7.2792 8.61563 7.29354C8.20989 7.44716 7.36558 7.76666 6.98375 8.70587C6.63727 9.55812 6.7807 10.64 7.42178 12.0135C8.28521 13.862 9.25897 14.7606 10.3987 14.7606C10.9277 14.7606 11.3523 14.5543 11.6059 14.431C11.6526 14.4083 11.6944 14.3875 11.7393 14.3689L12.4693 14.0559C12.5446 14.0245 12.6169 14.0092 12.6903 14.0092C13.0417 14.0092 13.6717 14.3572 14.6749 16.011L15.0918 16.707C15.6055 17.5552 15.6461 17.9403 15.5897 18.1141Z"
-                            fill="#0C0C0D" />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_11533_18105">
-                            <rect width="20" height="20" fill="white" transform="translate(0 0.478516)" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="input-block mb-24">
-                      <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-                        <path
-                          d="M18.2422 3.44727H1.75781C0.786602 3.44727 0 4.23875 0 5.20508V15.752C0 16.724 0.792383 17.5098 1.75781 17.5098H18.2422C19.2053 17.5098 20 16.7273 20 15.752V5.20508C20 4.24047 19.2165 3.44727 18.2422 3.44727ZM17.996 4.61914C17.6369 4.97637 11.4564 11.1243 11.243 11.3366C10.9109  11.6686 10.4695 11.8514 10 11.8514C9.53047 11.8514 9.08906 11.6686 8.75594 11.3355C8.61242 11.1927 2.50012 5.11266 2.00398 4.61914H17.996ZM1.17188 15.5134V5.44434L6.23586 10.4816L1.17188 15.5134ZM2.00473 16.3379L7.06672 11.3081L7.9284 12.1652C8.48176 12.7186 9.21746 13.0233 10 13.0233C10.7825 13.0233 11.5182 12.7186 12.0705 12.1663L12.9333 11.3081L17.9953 16.3379H2.00473ZM18.8281 15.5134L13.7641 10.4816L18.8281 5.44434V15.5134Z"
-                          fill="#141516" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="input-block mb-24">
-                      <!-- <textarea name="message" id="message" class="" placeholder="Your Message"
-                        required></textarea> -->
-                        <textarea name="message" id="comments" required="" placeholder="Message" class="form-control messages-box valid" aria-invalid="false"></textarea>
-                    </div>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="border-0 cus-btn-3">Learn More</button>
-                  </div>
-                  <div id="message" class="alert-msg"></div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Not Sure About Something this Section END -->
 
     <!-- FOOTER START -->
     <footer class="footer">
@@ -1450,8 +724,7 @@
                   <p class="fw-600 color-primary mb-16">Contact</p>
                 </div>
                 <div>
-                  <a href="tel:+13232751718" class="hover-content white">+1 (323) 275-1718</a><br>
-                  <a href="mailto:hello@logoipsum.com" class="hover-content white">hello@logoipsum.com</a>
+                  <a href="mailto:info@ian.com.gt" class="hover-content white">info@ian.com.gt</a>
                 </div>
               </div>
               <div class="footer-social-icon">
@@ -1504,7 +777,7 @@
                 </div>
               </div>
             </div>
-            <p class="subtitle fw-400 lightest-gray">© 2024 — Copyright</p>
+            <p class="subtitle fw-400 lightest-gray">© 2025 — Copyright</p>
           </div>
         </div>
       </div>
@@ -1529,11 +802,7 @@
       <ul class="mobile-nav__contact list-unstyled">
         <li>
           <i class="fas fa-envelope"></i>
-          <a href="mailto:example@company.com">example@company.com</a>
-        </li>
-        <li>
-          <i class="fa-solid fa-phone"></i>
-          <a href="tel:+12345678">+123 (4567) -890</a>
+          <a href="mailto:info@ian.com.gt">info@ian.com.gt</a>
         </li>
       </ul>
       <div class="mobile-nav__social">
@@ -1557,6 +826,35 @@
 
   <script src="assets/js/date.js"></script>
   <script src="assets/js/app.js"></script>
+  <script>
+  // Efecto de fondo para la pestaña activa
+  function updateTabBgText() {
+    var descTab = document.getElementById('nav-desc-tab');
+    var reviewTab = document.getElementById('nav-review-tab2');
+    var bg = document.getElementById('tab-bg-text');
+    if (!bg) return;
+    if (descTab.classList.contains('active')) {
+      bg.textContent = 'DISPONIBLES';
+    } else if (reviewTab.classList.contains('active')) {
+      bg.textContent = 'VENDIDOS';
+    }
+  }
+  // Bootstrap tab event
+  var descTab = document.getElementById('nav-desc-tab');
+  var reviewTab = document.getElementById('nav-review-tab2');
+  descTab && descTab.addEventListener('click', function() {
+    descTab.classList.add('active');
+    reviewTab.classList.remove('active');
+    updateTabBgText();
+  });
+  reviewTab && reviewTab.addEventListener('click', function() {
+    reviewTab.classList.add('active');
+    descTab.classList.remove('active');
+    updateTabBgText();
+  });
+  // Inicializar
+  updateTabBgText();
+  </script>
 
 </body>
 
